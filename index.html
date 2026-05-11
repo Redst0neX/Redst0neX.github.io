@@ -64,7 +64,7 @@ nav a:hover{
 }
 
 .hero h1{
-  font-size:58px;
+  font-size:56px;
   margin-bottom:15px;
 }
 
@@ -84,7 +84,7 @@ nav a:hover{
 }
 
 .search input{
-  width:400px;
+  width:420px;
   max-width:90%;
 
   padding:16px;
@@ -123,7 +123,7 @@ nav a:hover{
   opacity:0.8;
 }
 
-/* PROFILE */
+/* RESULT */
 
 #result{
   display:flex;
@@ -131,6 +131,8 @@ nav a:hover{
 
   padding:20px;
 }
+
+/* PROFILE */
 
 .profile{
   width:950px;
@@ -336,7 +338,7 @@ footer{
   <h1>Scratch Statistics</h1>
 
   <p>
-    Recherche des profils Scratch et affiche tes propres statistiques
+    Recherche des profils Scratch avec tes propres statistiques
   </p>
 
   <div class="search">
@@ -365,17 +367,39 @@ footer{
 
 /*
 ========================================
-STATS MANUELLES
-MODIFIE ICI
+TES STATS PERSONNALISÉES
+AJOUTE AUTANT D'UTILISATEURS QUE TU VEUX
 ========================================
 */
 
 const customStats = {
 
-  followers: "152 430",
-  loves: "8.2M",
-  favorites: "4.7M",
-  views: "29.1M",
+  griffpatch: {
+
+    followers: "1.2M",
+    loves: "54M",
+    favorites: "18M",
+    views: "210M"
+
+  },
+
+  stickman: {
+
+    followers: "82K",
+    loves: "2.1M",
+    favorites: "930K",
+    views: "11M"
+
+  },
+
+  testuser: {
+
+    followers: "5K",
+    loves: "120K",
+    favorites: "40K",
+    views: "900K"
+
+  }
 
 };
 
@@ -427,7 +451,7 @@ async function searchUser(){
     const user =
     await userResponse.json();
 
-    /* PROJECTS */
+    /* PROJETS */
 
     const projectResponse = await fetch(
       `https://api.scratch.mit.edu/users/${username}/projects?limit=6`
@@ -436,7 +460,19 @@ async function searchUser(){
     const projects =
     await projectResponse.json();
 
-    /* RENDER */
+    /* TES STATS */
+
+    const stats =
+    customStats[username.toLowerCase()] || {
+
+      followers: "0",
+      loves: "0",
+      favorites: "0",
+      views: "0"
+
+    };
+
+    /* AFFICHAGE */
 
     result.innerHTML = `
 
@@ -485,35 +521,35 @@ async function searchUser(){
 
         </div>
 
-        <!-- STATS MANUELLES -->
+        <!-- TES STATS -->
 
         <div class="stats">
 
           <div class="stat">
             <h3>FOLLOWERS</h3>
             <div class="number">
-              ${customStats.followers}
+              ${stats.followers}
             </div>
           </div>
 
           <div class="stat">
             <h3>LOVES</h3>
             <div class="number">
-              ${customStats.loves}
+              ${stats.loves}
             </div>
           </div>
 
           <div class="stat">
             <h3>FAVORITES</h3>
             <div class="number">
-              ${customStats.favorites}
+              ${stats.favorites}
             </div>
           </div>
 
           <div class="stat">
             <h3>VIEWS</h3>
             <div class="number">
-              ${customStats.views}
+              ${stats.views}
             </div>
           </div>
 
@@ -574,7 +610,7 @@ async function searchUser(){
 
 }
 
-/* ENTER */
+/* TOUCHE ENTRÉE */
 
 document
 .getElementById("searchInput")
