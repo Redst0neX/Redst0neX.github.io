@@ -1,10 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mon site</title>
+    <style>
+      /* Design général */
+      body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: #0f0f1a;
+        color: white;
+        text-align: center;
+      }
+
+      /* Titre animé */
+      h1 {
+        font-size: 3em;
+        margin-top: 80px;
+        animation: apparition 1.5s ease;
+      }
+
+      @keyframes apparition {
+        from { opacity: 0; transform: translateY(-30px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Bouton */
+      button {
+        margin-top: 30px;
+        padding: 15px 35px;
+        font-size: 1.1em;
+        background: #6c63ff;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+      }
+
+      button:hover {
+        background: #4b44cc;
+        transform: scale(1.1);
+      }
+
+      /* Message qui apparaît */
+      #message {
+        margin-top: 30px;
+        font-size: 1.4em;
+        opacity: 0;
+        transition: opacity 0.8s;
+      }
+
+      /* Compteur de clics */
+      #compteur {
+        margin-top: 15px;
+        font-size: 1em;
+        color: #aaa;
+      }
+
+      /* Particules */
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+    </style>
   </head>
   <body>
-    <h1>Bonjour ! Mon site fonctionne 🎉</h1>
-    <p>Bienvenue sur mon premier site web !</p>
+
+    <h1>Bienvenue sur mon site ✨</h1>
+    <p>Clique sur le bouton pour une surprise !</p>
+
+    <button onclick="clique()">Clique-moi !</button>
+
+    <div id="message"></div>
+    <div id="compteur">0 clics</div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+      // --- Bouton interactif ---
+      let clics = 0;
+      const messages = [
+        "Bravo ! 🎉",
+        "Tu es curieux ! 👀",
+        "Encore ! 😄",
+        "Tu ne t'arrêtes pas ! 🚀",
+        "Champion du clic ! 🏆"
+      ];
+
+      function clique() {
+        clics++;
+        const msg = document.getElementById("message");
+        const cpt = document.getElementById("compteur");
+
+        msg.style.opacity = 0;
+        setTimeout(() => {
+          msg.textContent = messages[Math.min(clics - 1, messages.length - 1)];
+          msg.style.opacity = 1;
+        }, 200);
+
+        cpt.textContent = clics + (clics === 1 ? " clic" : " clics");
+      }
+
+      // --- Particules animées en arrière-plan ---
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      const particules = Array.from({ length: 80 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 1,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+        alpha: Math.random()
+      }));
+
+      function animer() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particules.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(108, 99, 255, ${p.alpha})`;
+          ctx.fill();
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        });
+        requestAnimationFrame(animer);
+      }
+
+      animer();
+    </script>
   </body>
 </html>
