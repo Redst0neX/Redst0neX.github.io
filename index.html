@@ -1,117 +1,92 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Site en construction</title>
-    <style>
-      /* Design général */
-      body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: #0f0f1a;
-        color: white;
-        text-align: center;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon site</title>
 
-      /* Titre animé */
-      h1 {
-        font-size: 3em;
-        margin-top: 80px;
-        animation: apparition 1.5s ease;
-      }
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f1a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
 
-      @keyframes apparition {
-        from { opacity: 0; transform: translateY(-30px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
+    h1 {
+      font-size: 3em;
+      z-index: 1;
+      animation: apparition 1.5s ease;
+    }
 
-      button:hover {
-        background: #4b44cc;
-        transform: scale(1.1);
-      }
+    @keyframes apparition {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-      /* Message qui apparaît */
-      #message {
-        margin-top: 30px;
-        font-size: 1.4em;
-        opacity: 0;
-        transition: opacity 0.8s;
-      }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
 
-      /* Particules */
-      canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-      }
-    </style>
-  </head>
-  <body>
+<body>
 
-    <h1>✨Site en cours de création✨</h1>
-    
-    <button onclick="clique()">Clique-moi !</button>
+  <h1>Bienvenue sur mon site ✨</h1>
 
-    <div id="message"></div>
-    <div id="compteur">0 clics</div>
+  <canvas id="canvas"></canvas>
 
-    <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
-    <script>
-      
-      function clique() {
-        clics++;
-        const msg = document.getElementById("message");
-        const cpt = document.getElementById("compteur");
-
-        msg.style.opacity = 0;
-        setTimeout(() => {
-          msg.textContent = messages[Math.min(clics - 1, messages.length - 1)];
-          msg.style.opacity = 1;
-        }, 200);
-
-        cpt.textContent = clics + (clics === 1 ? " clic" : " clics");
-      }
-
-      // --- Particules animées en arrière-plan ---
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
-
+    function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+    }
 
-      window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    resize();
+    window.addEventListener("resize", resize);
+
+    const particules = Array.from({ length: 80 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 2 + 1,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: (Math.random() - 0.5) * 0.5,
+      alpha: Math.random()
+    }));
+
+    function animer() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particules.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(108, 99, 255, ${p.alpha})`;
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
       });
 
-      const particules = Array.from({ length: 80 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5,
-        alpha: Math.random()
-      }));
+      requestAnimationFrame(animer);
+    }
 
-      function animer() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particules.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(108, 99, 255, ${p.alpha})`;
-          ctx.fill();
-          p.x += p.dx;
-          p.y += p.dy;
-          if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-          if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-        });
-        requestAnimationFrame(animer);
-      }
+    animer();
+  </script>
 
-      animer();
-    </script>
-  </body>
+</body>
 </html>
