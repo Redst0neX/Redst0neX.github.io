@@ -1,301 +1,665 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MyStats</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, Helvetica, sans-serif;
-    }
+<title>Scratch CyberStats</title>
 
-    body{
-      background:#0f172a;
-      color:white;
-      min-height:100vh;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
-    header{
-      background:#111827;
-      padding:20px 40px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:1px solid #1f2937;
-    }
+<style>
 
-    .logo{
-      font-size:28px;
-      font-weight:bold;
-      color:#38bdf8;
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    nav a{
-      color:#cbd5e1;
-      text-decoration:none;
-      margin-left:20px;
-      transition:0.2s;
-    }
+body{
+  background:#050816;
+  color:white;
+  font-family:'Orbitron',sans-serif;
+  overflow-x:hidden;
+}
 
-    nav a:hover{
-      color:white;
-    }
+/* BACKGROUND */
 
-    .hero{
-      text-align:center;
-      padding:80px 20px 50px;
-    }
+.grid{
+  position:fixed;
+  inset:0;
 
-    .hero h1{
-      font-size:50px;
-      margin-bottom:15px;
-    }
+  background-image:
+  linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
 
-    .hero p{
-      color:#94a3b8;
-      font-size:18px;
-    }
+  background-size:40px 40px;
 
-    .search-box{
-      margin-top:30px;
-    }
+  z-index:-2;
+}
 
-    .search-box input{
-      width:320px;
-      max-width:90%;
-      padding:15px;
-      border:none;
-      border-radius:12px;
-      background:#1e293b;
-      color:white;
-      font-size:16px;
-      outline:none;
-    }
+.glow{
+  position:fixed;
+  width:500px;
+  height:500px;
+  border-radius:50%;
+  filter:blur(120px);
+  z-index:-1;
+}
 
-    .stats-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:20px;
-      padding:40px;
-    }
+.glow1{
+  top:-100px;
+  left:-100px;
+  background:rgba(0,255,255,0.15);
+}
 
-    .card{
-      background:#1e293b;
-      padding:25px;
-      border-radius:18px;
-      transition:0.25s;
-      border:1px solid #334155;
-    }
+.glow2{
+  bottom:-100px;
+  right:-100px;
+  background:rgba(255,0,255,0.12);
+}
 
-    .card:hover{
-      transform:translateY(-5px);
-      border-color:#38bdf8;
-    }
+/* HEADER */
 
-    .card h2{
-      font-size:18px;
-      color:#94a3b8;
-      margin-bottom:10px;
-    }
+header{
+  padding:25px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 
-    .number{
-      font-size:38px;
-      font-weight:bold;
-      color:#38bdf8;
-    }
+  border-bottom:
+  1px solid rgba(255,255,255,0.08);
 
-    .leaderboard{
-      padding:20px 40px 60px;
-    }
+  backdrop-filter:blur(12px);
+}
 
-    .leaderboard h2{
-      margin-bottom:25px;
-      font-size:32px;
-    }
+.logo{
+  font-size:34px;
+  font-weight:900;
 
-    .user{
-      background:#1e293b;
-      margin-bottom:15px;
-      padding:18px;
-      border-radius:14px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      transition:0.2s;
-      border:1px solid #334155;
-    }
+  color:#00ffff;
 
-    .user:hover{
-      border-color:#38bdf8;
-      transform:scale(1.01);
-    }
+  text-shadow:
+  0 0 15px #00ffff;
+}
 
-    .username{
-      display:flex;
-      align-items:center;
-      gap:15px;
-    }
+nav{
+  display:flex;
+  gap:25px;
+}
 
-    .avatar{
-      width:50px;
-      height:50px;
-      border-radius:50%;
-      background:#38bdf8;
-    }
+nav a{
+  text-decoration:none;
+  color:#94a3b8;
+  transition:0.25s;
+}
 
-    .rank{
-      color:#38bdf8;
-      font-weight:bold;
-      font-size:20px;
-    }
+nav a:hover{
+  color:#00ffff;
+}
 
-    footer{
-      padding:30px;
-      text-align:center;
-      color:#64748b;
-      border-top:1px solid #1f2937;
-    }
+/* HERO */
 
-    @media(max-width:700px){
+.hero{
+  text-align:center;
+  padding:90px 20px 60px;
+}
 
-      .hero h1{
-        font-size:34px;
-      }
+.hero h1{
+  font-size:70px;
 
-      header{
-        flex-direction:column;
-        gap:15px;
-      }
+  margin-bottom:20px;
 
-      .user{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:10px;
-      }
-    }
-  </style>
+  text-shadow:
+  0 0 20px #00ffff;
+}
+
+.hero p{
+  color:#94a3b8;
+  margin-bottom:40px;
+}
+
+/* SEARCH */
+
+.search{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.search input{
+  width:420px;
+  max-width:90%;
+
+  padding:18px;
+
+  border:none;
+  outline:none;
+
+  border-radius:18px;
+
+  background:rgba(15,23,42,0.8);
+
+  color:white;
+
+  border:
+  1px solid rgba(0,255,255,0.25);
+
+  box-shadow:
+  0 0 20px rgba(0,255,255,0.15);
+}
+
+.search input:focus{
+  border-color:#00ffff;
+
+  box-shadow:
+  0 0 30px rgba(0,255,255,0.5);
+}
+
+.search button{
+  padding:18px 28px;
+
+  border:none;
+
+  border-radius:18px;
+
+  cursor:pointer;
+
+  color:white;
+  font-weight:bold;
+
+  background:
+  linear-gradient(45deg,#00ffff,#ff00ff);
+
+  transition:0.25s;
+
+  box-shadow:
+  0 0 25px rgba(0,255,255,0.4);
+}
+
+.search button:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+  0 0 35px rgba(255,0,255,0.7);
+}
+
+/* RESULT */
+
+#result{
+  display:flex;
+  justify-content:center;
+
+  padding:40px 20px;
+}
+
+/* PROFILE */
+
+.profile{
+  width:850px;
+  max-width:95%;
+
+  background:
+  rgba(15,23,42,0.8);
+
+  border-radius:28px;
+
+  padding:35px;
+
+  border:
+  1px solid rgba(0,255,255,0.2);
+
+  backdrop-filter:blur(12px);
+
+  animation:fade 0.35s ease;
+}
+
+.top{
+  display:flex;
+  gap:30px;
+  flex-wrap:wrap;
+}
+
+.avatar{
+  width:130px;
+  height:130px;
+
+  border-radius:50%;
+
+  border:3px solid #00ffff;
+
+  box-shadow:
+  0 0 30px rgba(0,255,255,0.7);
+}
+
+.user-info{
+  flex:1;
+}
+
+.user-info h2{
+  font-size:40px;
+
+  margin-bottom:10px;
+
+  color:#00ffff;
+
+  text-shadow:
+  0 0 15px #00ffff;
+}
+
+.user-info p{
+  margin:8px 0;
+  color:#cbd5e1;
+}
+
+/* STATS */
+
+.stats{
+  margin-top:35px;
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(180px,1fr));
+
+  gap:18px;
+}
+
+.stat{
+  background:
+  rgba(255,255,255,0.04);
+
+  padding:25px;
+
+  border-radius:20px;
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  text-align:center;
+
+  transition:0.25s;
+}
+
+.stat:hover{
+  transform:translateY(-5px);
+
+  border-color:#00ffff;
+
+  box-shadow:
+  0 0 20px rgba(0,255,255,0.3);
+}
+
+.stat h3{
+  color:#94a3b8;
+  margin-bottom:12px;
+}
+
+.stat-number{
+  font-size:32px;
+  color:#00ffff;
+  font-weight:bold;
+}
+
+/* PROJECTS */
+
+.projects{
+  margin-top:40px;
+}
+
+.projects h2{
+  margin-bottom:20px;
+  color:#00ffff;
+}
+
+.project-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(240px,1fr));
+
+  gap:18px;
+}
+
+.project{
+  background:
+  rgba(255,255,255,0.04);
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+  border:
+  1px solid rgba(255,255,255,0.08);
+
+  transition:0.25s;
+}
+
+.project:hover{
+  transform:translateY(-5px);
+
+  border-color:#00ffff;
+
+  box-shadow:
+  0 0 20px rgba(0,255,255,0.25);
+}
+
+.project img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
+
+.project-content{
+  padding:18px;
+}
+
+.project h3{
+  margin-bottom:10px;
+}
+
+.project p{
+  color:#94a3b8;
+  font-size:14px;
+}
+
+/* ANIM */
+
+@keyframes fade{
+
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  header{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  nav{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
+<div class="grid"></div>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
 <header>
-  <div class="logo">MyStats</div>
+
+  <div class="logo">
+    SCRATCH CYBERSTATS
+  </div>
 
   <nav>
     <a href="#">Accueil</a>
-    <a href="#">Classements</a>
-    <a href="#">Stats</a>
+    <a href="#">Utilisateurs</a>
+    <a href="#">Projets</a>
     <a href="#">API</a>
   </nav>
+
 </header>
 
 <section class="hero">
-  <h1>Statistiques de la communauté</h1>
-  <p>Explore les utilisateurs, projets et tendances.</p>
 
-  <div class="search-box">
-    <input type="text" placeholder="Rechercher un utilisateur...">
-  </div>
-</section>
+  <h1>SCRATCH NETWORK</h1>
 
-<section class="stats-grid">
+  <p>
+    Recherche de profils Scratch en temps réel
+  </p>
 
-  <div class="card">
-    <h2>Utilisateurs</h2>
-    <div class="number" id="users">2.4M</div>
-  </div>
+  <div class="search">
 
-  <div class="card">
-    <h2>Projets</h2>
-    <div class="number" id="projects">12.8M</div>
-  </div>
+    <input
+      type="text"
+      id="username"
+      placeholder="Entrer un pseudo Scratch..."
+    >
 
-  <div class="card">
-    <h2>Commentaires</h2>
-    <div class="number" id="comments">98M</div>
-  </div>
+    <button onclick="loadUser()">
+      SEARCH
+    </button>
 
-  <div class="card">
-    <h2>Likes</h2>
-    <div class="number" id="likes">340M</div>
   </div>
 
 </section>
 
-<section class="leaderboard">
-
-  <h2>Top utilisateurs</h2>
-
-  <div class="user">
-    <div class="username">
-      <div class="avatar"></div>
-      <div>
-        <h3>AlphaCoder</h3>
-        <p>1.2M followers</p>
-      </div>
-    </div>
-
-    <div class="rank">#1</div>
-  </div>
-
-  <div class="user">
-    <div class="username">
-      <div class="avatar"></div>
-      <div>
-        <h3>PixelDev</h3>
-        <p>980K followers</p>
-      </div>
-    </div>
-
-    <div class="rank">#2</div>
-  </div>
-
-  <div class="user">
-    <div class="username">
-      <div class="avatar"></div>
-      <div>
-        <h3>GameStudio</h3>
-        <p>870K followers</p>
-      </div>
-    </div>
-
-    <div class="rank">#3</div>
-  </div>
-
-</section>
-
-<footer>
-  © 2026 MyStats — Tous droits réservés
-</footer>
+<div id="result"></div>
 
 <script>
-  // Petite animation des chiffres
 
-  function animateValue(id, start, end, duration) {
-    let obj = document.getElementById(id);
-    let range = end - start;
-    let current = start;
-    let increment = end > start ? 1 : -1;
-    let stepTime = Math.abs(Math.floor(duration / range));
+async function loadUser(){
 
-    let timer = setInterval(() => {
-      current += increment;
-      obj.textContent = current.toLocaleString();
+  const username =
+  document.getElementById("username")
+  .value
+  .trim();
 
-      if (current == end) {
-        clearInterval(timer);
-      }
-    }, stepTime);
+  const result =
+  document.getElementById("result");
+
+  if(username === ""){
+
+    result.innerHTML = `
+      <div class="profile">
+        <p>Entre un pseudo.</p>
+      </div>
+    `;
+
+    return;
   }
 
-  animateValue("users", 0, 2400000, 1200);
-  animateValue("projects", 0, 12800000, 1200);
-  animateValue("comments", 0, 98000000, 1200);
-  animateValue("likes", 0, 340000000, 1200);
+  result.innerHTML = `
+    <div class="profile">
+      <p>Connexion à l'API Scratch...</p>
+    </div>
+  `;
+
+  try{
+
+    /* USER */
+
+    const userRes = await fetch(
+      `https://api.scratch.mit.edu/users/${username}`
+    );
+
+    if(!userRes.ok){
+      throw new Error();
+    }
+
+    const user =
+    await userRes.json();
+
+    /* PROJECTS */
+
+    const projectRes = await fetch(
+      `https://api.scratch.mit.edu/users/${username}/projects`
+    );
+
+    const projects =
+    await projectRes.json();
+
+    /* FOLLOWERS */
+
+    const followersRes = await fetch(
+      `https://scratchdb.lefty.one/v3/user/info/${username}`
+    );
+
+    let followers = "Inconnu";
+
+    if(followersRes.ok){
+
+      const followerData =
+      await followersRes.json();
+
+      followers =
+      followerData.statistics.followers;
+
+    }
+
+    /* RENDER */
+
+    result.innerHTML = `
+
+      <div class="profile">
+
+        <div class="top">
+
+          <img
+            class="avatar"
+
+            src="
+            https://uploads.scratch.mit.edu/get_image/user/${user.id}_200x200.png
+            "
+          >
+
+          <div class="user-info">
+
+            <h2>${user.username}</h2>
+
+            <p>
+              ID : ${user.id}
+            </p>
+
+            <p>
+              Pays :
+              ${user.profile.country || "Inconnu"}
+            </p>
+
+            <p>
+              Bio :
+              ${user.profile.bio || "Aucune bio"}
+            </p>
+
+            <p>
+              Statut :
+              ${user.profile.status || "Aucun statut"}
+            </p>
+
+            <p>
+              Créé le :
+              ${new Date(user.history.joined)
+              .toLocaleDateString()}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="stats">
+
+          <div class="stat">
+            <h3>FOLLOWERS</h3>
+            <div class="stat-number">
+              ${followers}
+            </div>
+          </div>
+
+          <div class="stat">
+            <h3>PROJETS</h3>
+            <div class="stat-number">
+              ${projects.length}
+            </div>
+          </div>
+
+          <div class="stat">
+            <h3>SCRATCH TEAM</h3>
+            <div class="stat-number">
+              ${user.scratchteam ? "YES" : "NO"}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="projects">
+
+          <h2>PROJETS RÉCENTS</h2>
+
+          <div class="project-grid">
+
+            ${projects.slice(0,6).map(project => `
+
+              <div class="project">
+
+                <img
+                  src="
+                  https://uploads.scratch.mit.edu/get_image/project/${project.id}_480x360.png
+                  "
+                >
+
+                <div class="project-content">
+
+                  <h3>
+                    ${project.title}
+                  </h3>
+
+                  <p>
+                    ❤️ ${project.stats.loves}
+                    • ⭐ ${project.stats.favorites}
+                    • 👁️ ${project.stats.views}
+                  </p>
+
+                </div>
+
+              </div>
+
+            `).join("")}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  } catch(error){
+
+    result.innerHTML = `
+      <div class="profile">
+        <p>Utilisateur introuvable.</p>
+      </div>
+    `;
+
+  }
+
+}
+
+document
+.getElementById("username")
+.addEventListener("keypress", function(e){
+
+  if(e.key === "Enter"){
+    loadUser();
+  }
+
+});
+
 </script>
 
 </body>
