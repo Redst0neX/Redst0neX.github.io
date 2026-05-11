@@ -3,21 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ScratchViews</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
 body{
-  font-family:'Inter',sans-serif;
+  margin:0;
+  font-family:Inter, sans-serif;
   background:#0f172a;
   color:white;
 }
@@ -26,30 +20,23 @@ body{
 
 header{
   background:#111827;
-  border-bottom:1px solid #1f2937;
-
   padding:20px 40px;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
+  border-bottom:1px solid #1f2937;
 }
 
 .logo{
-  font-size:28px;
+  font-size:26px;
   font-weight:800;
   color:#38bdf8;
 }
 
-nav{
-  display:flex;
-  gap:25px;
-}
-
 nav a{
   color:#94a3b8;
+  margin-left:20px;
   text-decoration:none;
-  transition:0.2s;
 }
 
 nav a:hover{
@@ -60,18 +47,16 @@ nav a:hover{
 
 .hero{
   text-align:center;
-  padding:80px 20px 60px;
+  padding:60px 20px 30px;
 }
 
 .hero h1{
-  font-size:56px;
-  margin-bottom:15px;
+  font-size:48px;
+  margin-bottom:10px;
 }
 
 .hero p{
   color:#94a3b8;
-  font-size:18px;
-  margin-bottom:35px;
 }
 
 /* SEARCH */
@@ -79,48 +64,32 @@ nav a:hover{
 .search{
   display:flex;
   justify-content:center;
-  gap:12px;
+  gap:10px;
+  margin-top:25px;
   flex-wrap:wrap;
 }
 
 .search input{
-  width:420px;
-  max-width:90%;
-
-  padding:16px;
-
+  padding:14px;
+  width:320px;
+  border-radius:10px;
   border:none;
-  outline:none;
-
-  border-radius:14px;
-
   background:#1e293b;
-
   color:white;
-
-  font-size:16px;
+  outline:none;
 }
 
 .search button{
-  padding:16px 24px;
-
+  padding:14px 18px;
   border:none;
-
-  border-radius:14px;
-
+  border-radius:10px;
   background:#38bdf8;
-
   color:white;
-
-  font-weight:bold;
-
   cursor:pointer;
-
-  transition:0.2s;
 }
 
 .search button:hover{
-  opacity:0.8;
+  opacity:0.85;
 }
 
 /* RESULT */
@@ -128,189 +97,95 @@ nav a:hover{
 #result{
   display:flex;
   justify-content:center;
-
-  padding:20px;
+  margin-top:25px;
 }
 
-/* PROFILE */
-
-.profile{
-  width:950px;
+.card{
+  width:850px;
   max-width:95%;
-
   background:#111827;
-
   border:1px solid #1f2937;
-
-  border-radius:22px;
-
-  padding:35px;
-
-  animation:fade 0.3s ease;
+  border-radius:18px;
+  padding:25px;
 }
 
 .top{
   display:flex;
-  gap:25px;
+  gap:20px;
   flex-wrap:wrap;
 }
 
 .avatar{
-  width:120px;
-  height:120px;
+  width:110px;
+  height:110px;
   border-radius:50%;
 }
 
-.user-info{
-  flex:1;
+.info h2{
+  margin:0;
+  font-size:32px;
+  color:#38bdf8;
 }
 
-.user-info h2{
-  font-size:42px;
-  margin-bottom:12px;
-}
-
-.user-info p{
+.info p{
+  margin:6px 0;
   color:#94a3b8;
-  margin:8px 0;
 }
 
 /* STATS */
 
 .stats{
-  margin-top:35px;
-
   display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(180px,1fr));
-
-  gap:18px;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:12px;
+  margin-top:25px;
 }
 
 .stat{
   background:#1e293b;
-
-  border-radius:18px;
-
-  padding:25px;
-
-  border:1px solid #334155;
-
-  transition:0.2s;
-}
-
-.stat:hover{
-  transform:translateY(-4px);
+  padding:15px;
+  border-radius:12px;
+  text-align:center;
 }
 
 .stat h3{
+  margin:0;
+  font-size:13px;
   color:#94a3b8;
-  margin-bottom:12px;
 }
 
-.number{
-  font-size:34px;
-  font-weight:bold;
+.stat div{
+  font-size:20px;
+  margin-top:5px;
   color:#38bdf8;
+  font-weight:bold;
 }
 
-/* PROJECTS */
+/* LEADERBOARD */
 
-.projects{
-  margin-top:40px;
+.leaderboard{
+  width:850px;
+  max-width:95%;
+  margin:40px auto;
 }
 
-.projects h2{
-  margin-bottom:20px;
-}
-
-.project-grid{
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(240px,1fr));
-
-  gap:18px;
-}
-
-.project{
-  background:#1e293b;
-
-  border-radius:18px;
-
-  overflow:hidden;
-
-  border:1px solid #334155;
-
-  transition:0.2s;
-}
-
-.project:hover{
-  transform:translateY(-5px);
-}
-
-.project img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-}
-
-.project-content{
-  padding:18px;
-}
-
-.project-content h3{
+.user{
+  background:#111827;
+  border:1px solid #1f2937;
+  padding:12px;
+  border-radius:12px;
   margin-bottom:10px;
-}
-
-.project-content p{
-  color:#94a3b8;
-  font-size:14px;
+  display:flex;
+  justify-content:space-between;
 }
 
 /* FOOTER */
 
 footer{
-  padding:35px;
   text-align:center;
+  padding:30px;
   color:#64748b;
-}
-
-/* ANIMATION */
-
-@keyframes fade{
-
-  from{
-    opacity:0;
-    transform:translateY(10px);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-
-}
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-  .hero h1{
-    font-size:40px;
-  }
-
-  header{
-    flex-direction:column;
-    gap:18px;
-  }
-
-  nav{
-    flex-wrap:wrap;
-    justify-content:center;
-  }
-
+  margin-top:40px;
 }
 
 </style>
@@ -319,308 +194,133 @@ footer{
 <body>
 
 <header>
-
-  <div class="logo">
-    ScratchViews
-  </div>
-
+  <div class="logo">ScratchViews</div>
   <nav>
     <a href="#">Accueil</a>
-    <a href="#">Classements</a>
-    <a href="#">Stats</a>
-    <a href="#">API</a>
+    <a href="#">Classement</a>
   </nav>
-
 </header>
 
-<section class="hero">
-
-  <h1>Scratch Statistics</h1>
-
-  <p>
-    Recherche des profils Scratch avec tes propres statistiques
-  </p>
+<div class="hero">
+  <h1>Scratch Stats</h1>
+  <p>Recherche de profils Scratch + stats personnalisées</p>
 
   <div class="search">
-
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Entrer un pseudo Scratch..."
-    >
-
-    <button onclick="searchUser()">
-      Rechercher
-    </button>
-
+    <input id="input" placeholder="Pseudo Scratch">
+    <button onclick="search()">Rechercher</button>
   </div>
-
-</section>
+</div>
 
 <div id="result"></div>
 
+<div class="leaderboard">
+
+  <h2>Leaderboard</h2>
+
+  <div id="board"></div>
+
+</div>
+
 <footer>
-  © 2026 ScratchViews
+  © ScratchViews
 </footer>
 
 <script>
 
-/*
-========================================
-TES STATS PERSONNALISÉES
-AJOUTE AUTANT D'UTILISATEURS QUE TU VEUX
-========================================
-*/
+/* =========================
+   STATS MANUELLES
+========================= */
 
-const customStats = {
+const statsDB = {
 
-  griffpatch: {
-
-    followers: "1.2M",
-    loves: "54M",
-    favorites: "18M",
-    views: "210M"
-
-  },
-
-  stickman: {
-
-    followers: "82K",
-    loves: "2.1M",
-    favorites: "930K",
-    views: "11M"
-
-  },
-
-  testuser: {
-
-    followers: "5K",
-    loves: "120K",
-    favorites: "40K",
-    views: "900K"
-
-  }
+  griffpatch: { followers: "758 672", loves: "187" },
+  ScratchCat: { followers: "167 280", loves: "109" },
+  griffpatch_tutor: { followers: "135 906", loves: "40" },
+  Will_Wam: { followers: "123 854", loves: "11" },
+  ceebee: { followers: "87 599", loves: "29" }
 
 };
 
-/*
-========================================
-RECHERCHE UTILISATEUR
-========================================
-*/
+/* =========================
+   SEARCH
+========================= */
 
-async function searchUser(){
+async function search(){
 
-  const username =
-  document.getElementById("searchInput")
-  .value
-  .trim();
+  const u = document.getElementById("input").value.trim();
+  const r = document.getElementById("result");
 
-  const result =
-  document.getElementById("result");
-
-  if(username === ""){
-
-    result.innerHTML = `
-      <div class="profile">
-        <p>Entre un pseudo.</p>
-      </div>
-    `;
-
+  if(!u){
+    r.innerHTML = "<div class='card'>Entre un pseudo</div>";
     return;
   }
 
-  result.innerHTML = `
-    <div class="profile">
-      <p>Chargement...</p>
-    </div>
-  `;
+  r.innerHTML = "<div class='card'>Chargement...</div>";
 
   try{
 
-    /* USER */
+    const res = await fetch(`https://api.scratch.mit.edu/users/${u}`);
+    if(!res.ok) throw new Error();
 
-    const userResponse = await fetch(
-      `https://api.scratch.mit.edu/users/${username}`
-    );
+    const user = await res.json();
+    const stats = statsDB[u] || { followers:"0", loves:"0" };
 
-    if(!userResponse.ok){
-      throw new Error();
-    }
-
-    const user =
-    await userResponse.json();
-
-    /* PROJETS */
-
-    const projectResponse = await fetch(
-      `https://api.scratch.mit.edu/users/${username}/projects?limit=6`
-    );
-
-    const projects =
-    await projectResponse.json();
-
-    /* TES STATS */
-
-    const stats =
-    customStats[username.toLowerCase()] || {
-
-      followers: "0",
-      loves: "0",
-      favorites: "0",
-      views: "0"
-
-    };
-
-    /* AFFICHAGE */
-
-    result.innerHTML = `
-
-      <div class="profile">
+    r.innerHTML = `
+      <div class="card">
 
         <div class="top">
 
-          <img
-            class="avatar"
+          <img class="avatar"
+          src="https://uploads.scratch.mit.edu/get_image/user/${user.id}_200x200.png">
 
-            src="
-            https://uploads.scratch.mit.edu/get_image/user/${user.id}_200x200.png
-            "
-          >
-
-          <div class="user-info">
+          <div class="info">
 
             <h2>${user.username}</h2>
 
-            <p>
-              ID : ${user.id}
-            </p>
-
-            <p>
-              Pays :
-              ${user.profile.country || "Inconnu"}
-            </p>
-
-            <p>
-              Bio :
-              ${user.profile.bio || "Aucune bio"}
-            </p>
-
-            <p>
-              Statut :
-              ${user.profile.status || "Aucun statut"}
-            </p>
-
-            <p>
-              Créé le :
-              ${new Date(user.history.joined)
-              .toLocaleDateString()}
-            </p>
+            <p>ID: ${user.id}</p>
+            <p>Pays: ${user.profile.country || "?"}</p>
+            <p>Bio: ${user.profile.bio || "aucune"}</p>
+            <p>Créé: ${new Date(user.history.joined).toLocaleDateString()}</p>
 
           </div>
 
         </div>
-
-        <!-- TES STATS -->
 
         <div class="stats">
 
           <div class="stat">
-            <h3>FOLLOWERS</h3>
-            <div class="number">
-              ${stats.followers}
-            </div>
+            <h3>Followers</h3>
+            <div>${stats.followers}</div>
           </div>
 
           <div class="stat">
-            <h3>LOVES</h3>
-            <div class="number">
-              ${stats.loves}
-            </div>
-          </div>
-
-          <div class="stat">
-            <h3>FAVORITES</h3>
-            <div class="number">
-              ${stats.favorites}
-            </div>
-          </div>
-
-          <div class="stat">
-            <h3>VIEWS</h3>
-            <div class="number">
-              ${stats.views}
-            </div>
-          </div>
-
-        </div>
-
-        <!-- PROJETS -->
-
-        <div class="projects">
-
-          <h2>Projets récents</h2>
-
-          <div class="project-grid">
-
-            ${projects.map(project => `
-
-              <div class="project">
-
-                <img
-                  src="
-                  https://uploads.scratch.mit.edu/get_image/project/${project.id}_480x360.png
-                  "
-                >
-
-                <div class="project-content">
-
-                  <h3>
-                    ${project.title}
-                  </h3>
-
-                  <p>
-                    ❤️ ${project.stats.loves}
-                    • ⭐ ${project.stats.favorites}
-                    • 👁️ ${project.stats.views}
-                  </p>
-
-                </div>
-
-              </div>
-
-            `).join("")}
-
+            <h3>Loves</h3>
+            <div>${stats.loves}</div>
           </div>
 
         </div>
 
       </div>
-
     `;
 
-  } catch(error){
-
-    result.innerHTML = `
-      <div class="profile">
-        <p>Utilisateur introuvable.</p>
-      </div>
-    `;
+  }catch(e){
+    r.innerHTML = "<div class='card'>Utilisateur introuvable</div>";
   }
 
 }
 
-/* TOUCHE ENTRÉE */
+/* =========================
+   LEADERBOARD
+========================= */
 
-document
-.getElementById("searchInput")
-.addEventListener("keypress", function(e){
+const board = document.getElementById("board");
 
-  if(e.key === "Enter"){
-    searchUser();
-  }
-
-});
+board.innerHTML = Object.keys(statsDB).map(u => `
+  <div class="user">
+    <span>${u}</span>
+    <span>${statsDB[u].followers} followers</span>
+  </div>
+`).join("");
 
 </script>
 
