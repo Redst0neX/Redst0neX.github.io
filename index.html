@@ -1,147 +1,302 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Mon site</title>
-    <style>
-      /* Design général */
-      body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: #0f0f1a;
-        color: white;
-        text-align: center;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MyStats</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#0f172a;
+      color:white;
+      min-height:100vh;
+    }
+
+    header{
+      background:#111827;
+      padding:20px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #1f2937;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:bold;
+      color:#38bdf8;
+    }
+
+    nav a{
+      color:#cbd5e1;
+      text-decoration:none;
+      margin-left:20px;
+      transition:0.2s;
+    }
+
+    nav a:hover{
+      color:white;
+    }
+
+    .hero{
+      text-align:center;
+      padding:80px 20px 50px;
+    }
+
+    .hero h1{
+      font-size:50px;
+      margin-bottom:15px;
+    }
+
+    .hero p{
+      color:#94a3b8;
+      font-size:18px;
+    }
+
+    .search-box{
+      margin-top:30px;
+    }
+
+    .search-box input{
+      width:320px;
+      max-width:90%;
+      padding:15px;
+      border:none;
+      border-radius:12px;
+      background:#1e293b;
+      color:white;
+      font-size:16px;
+      outline:none;
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px;
+      padding:40px;
+    }
+
+    .card{
+      background:#1e293b;
+      padding:25px;
+      border-radius:18px;
+      transition:0.25s;
+      border:1px solid #334155;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      border-color:#38bdf8;
+    }
+
+    .card h2{
+      font-size:18px;
+      color:#94a3b8;
+      margin-bottom:10px;
+    }
+
+    .number{
+      font-size:38px;
+      font-weight:bold;
+      color:#38bdf8;
+    }
+
+    .leaderboard{
+      padding:20px 40px 60px;
+    }
+
+    .leaderboard h2{
+      margin-bottom:25px;
+      font-size:32px;
+    }
+
+    .user{
+      background:#1e293b;
+      margin-bottom:15px;
+      padding:18px;
+      border-radius:14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      transition:0.2s;
+      border:1px solid #334155;
+    }
+
+    .user:hover{
+      border-color:#38bdf8;
+      transform:scale(1.01);
+    }
+
+    .username{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .avatar{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background:#38bdf8;
+    }
+
+    .rank{
+      color:#38bdf8;
+      font-weight:bold;
+      font-size:20px;
+    }
+
+    footer{
+      padding:30px;
+      text-align:center;
+      color:#64748b;
+      border-top:1px solid #1f2937;
+    }
+
+    @media(max-width:700px){
+
+      .hero h1{
+        font-size:34px;
       }
 
-      /* Titre animé */
-      h1 {
-        font-size: 3em;
-        margin-top: 80px;
-        animation: apparition 1.5s ease;
+      header{
+        flex-direction:column;
+        gap:15px;
       }
 
-      @keyframes apparition {
-        from { opacity: 0; transform: translateY(-30px); }
-        to   { opacity: 1; transform: translateY(0); }
+      .user{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
       }
+    }
+  </style>
+</head>
 
-      /* Bouton */
-      button {
-        margin-top: 30px;
-        padding: 15px 35px;
-        font-size: 1.1em;
-        background: #6c63ff;
-        color: white;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: transform 0.2s, background 0.3s;
+<body>
+
+<header>
+  <div class="logo">MyStats</div>
+
+  <nav>
+    <a href="#">Accueil</a>
+    <a href="#">Classements</a>
+    <a href="#">Stats</a>
+    <a href="#">API</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Statistiques de la communauté</h1>
+  <p>Explore les utilisateurs, projets et tendances.</p>
+
+  <div class="search-box">
+    <input type="text" placeholder="Rechercher un utilisateur...">
+  </div>
+</section>
+
+<section class="stats-grid">
+
+  <div class="card">
+    <h2>Utilisateurs</h2>
+    <div class="number" id="users">2.4M</div>
+  </div>
+
+  <div class="card">
+    <h2>Projets</h2>
+    <div class="number" id="projects">12.8M</div>
+  </div>
+
+  <div class="card">
+    <h2>Commentaires</h2>
+    <div class="number" id="comments">98M</div>
+  </div>
+
+  <div class="card">
+    <h2>Likes</h2>
+    <div class="number" id="likes">340M</div>
+  </div>
+
+</section>
+
+<section class="leaderboard">
+
+  <h2>Top utilisateurs</h2>
+
+  <div class="user">
+    <div class="username">
+      <div class="avatar"></div>
+      <div>
+        <h3>AlphaCoder</h3>
+        <p>1.2M followers</p>
+      </div>
+    </div>
+
+    <div class="rank">#1</div>
+  </div>
+
+  <div class="user">
+    <div class="username">
+      <div class="avatar"></div>
+      <div>
+        <h3>PixelDev</h3>
+        <p>980K followers</p>
+      </div>
+    </div>
+
+    <div class="rank">#2</div>
+  </div>
+
+  <div class="user">
+    <div class="username">
+      <div class="avatar"></div>
+      <div>
+        <h3>GameStudio</h3>
+        <p>870K followers</p>
+      </div>
+    </div>
+
+    <div class="rank">#3</div>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 MyStats — Tous droits réservés
+</footer>
+
+<script>
+  // Petite animation des chiffres
+
+  function animateValue(id, start, end, duration) {
+    let obj = document.getElementById(id);
+    let range = end - start;
+    let current = start;
+    let increment = end > start ? 1 : -1;
+    let stepTime = Math.abs(Math.floor(duration / range));
+
+    let timer = setInterval(() => {
+      current += increment;
+      obj.textContent = current.toLocaleString();
+
+      if (current == end) {
+        clearInterval(timer);
       }
+    }, stepTime);
+  }
 
-      button:hover {
-        background: #4b44cc;
-        transform: scale(1.1);
-      }
+  animateValue("users", 0, 2400000, 1200);
+  animateValue("projects", 0, 12800000, 1200);
+  animateValue("comments", 0, 98000000, 1200);
+  animateValue("likes", 0, 340000000, 1200);
+</script>
 
-      /* Message qui apparaît */
-      #message {
-        margin-top: 30px;
-        font-size: 1.4em;
-        opacity: 0;
-        transition: opacity 0.8s;
-      }
-
-      /* Compteur de clics */
-      #compteur {
-        margin-top: 15px;
-        font-size: 1em;
-        color: #aaa;
-      }
-
-      /* Particules */
-      canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-      }
-    </style>
-  </head>
-  <body>
-
-    <h1>Bienvenue sur mon site ✨</h1>
-    <p>Clique sur le bouton pour une surprise !</p>
-
-    <button onclick="clique()">Clique-moi !</button>
-
-    <div id="message"></div>
-    <div id="compteur">0 clics</div>
-
-    <canvas id="canvas"></canvas>
-
-    <script>
-      // --- Bouton interactif ---
-      let clics = 0;
-      const messages = [
-        "Bravo ! 🎉",
-        "Tu es curieux ! 👀",
-        "Encore ! 😄",
-        "Tu ne t'arrêtes pas ! 🚀",
-        "Champion du clic ! 🏆"
-      ];
-
-      function clique() {
-        clics++;
-        const msg = document.getElementById("message");
-        const cpt = document.getElementById("compteur");
-
-        msg.style.opacity = 0;
-        setTimeout(() => {
-          msg.textContent = messages[Math.min(clics - 1, messages.length - 1)];
-          msg.style.opacity = 1;
-        }, 200);
-
-        cpt.textContent = clics + (clics === 1 ? " clic" : " clics");
-      }
-
-      // --- Particules animées en arrière-plan ---
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      });
-
-      const particules = Array.from({ length: 80 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5,
-        alpha: Math.random()
-      }));
-
-      function animer() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particules.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(108, 99, 255, ${p.alpha})`;
-          ctx.fill();
-          p.x += p.dx;
-          p.y += p.dy;
-          if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-          if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-        });
-        requestAnimationFrame(animer);
-      }
-
-      animer();
-    </script>
-  </body>
+</body>
 </html>
