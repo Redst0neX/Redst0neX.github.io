@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scratch CyberStats</title>
+<title>CyberStats</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
@@ -25,7 +25,7 @@ body{
 
 /* BACKGROUND */
 
-.grid{
+.bg-grid{
   position:fixed;
   inset:0;
 
@@ -34,7 +34,6 @@ body{
   linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
 
   background-size:40px 40px;
-
   z-index:-2;
 }
 
@@ -47,13 +46,13 @@ body{
   z-index:-1;
 }
 
-.glow1{
+.glow.one{
   top:-100px;
   left:-100px;
-  background:rgba(0,255,255,0.15);
+  background:rgba(0,255,255,0.12);
 }
 
-.glow2{
+.glow.two{
   bottom:-100px;
   right:-100px;
   background:rgba(255,0,255,0.12);
@@ -70,17 +69,17 @@ header{
   border-bottom:
   1px solid rgba(255,255,255,0.08);
 
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(10px);
 }
 
 .logo{
-  font-size:34px;
+  font-size:32px;
   font-weight:900;
-
   color:#00ffff;
 
   text-shadow:
-  0 0 15px #00ffff;
+  0 0 10px #00ffff,
+  0 0 30px #00ffff;
 }
 
 nav{
@@ -89,8 +88,8 @@ nav{
 }
 
 nav a{
-  text-decoration:none;
   color:#94a3b8;
+  text-decoration:none;
   transition:0.25s;
 }
 
@@ -102,12 +101,11 @@ nav a:hover{
 
 .hero{
   text-align:center;
-  padding:90px 20px 60px;
+  padding:90px 20px 50px;
 }
 
 .hero h1{
-  font-size:70px;
-
+  font-size:68px;
   margin-bottom:20px;
 
   text-shadow:
@@ -121,14 +119,14 @@ nav a:hover{
 
 /* SEARCH */
 
-.search{
+.search-container{
   display:flex;
   justify-content:center;
   gap:15px;
   flex-wrap:wrap;
 }
 
-.search input{
+.search-container input{
   width:420px;
   max-width:90%;
 
@@ -139,7 +137,8 @@ nav a:hover{
 
   border-radius:18px;
 
-  background:rgba(15,23,42,0.8);
+  background:
+  rgba(15,23,42,0.8);
 
   color:white;
 
@@ -150,15 +149,15 @@ nav a:hover{
   0 0 20px rgba(0,255,255,0.15);
 }
 
-.search input:focus{
+.search-container input:focus{
   border-color:#00ffff;
 
   box-shadow:
   0 0 30px rgba(0,255,255,0.5);
 }
 
-.search button{
-  padding:18px 28px;
+.search-container button{
+  padding:18px 30px;
 
   border:none;
 
@@ -178,7 +177,7 @@ nav a:hover{
   0 0 25px rgba(0,255,255,0.4);
 }
 
-.search button:hover{
+.search-container button:hover{
   transform:translateY(-4px);
 
   box-shadow:
@@ -190,14 +189,13 @@ nav a:hover{
 #result{
   display:flex;
   justify-content:center;
-
   padding:40px 20px;
 }
 
 /* PROFILE */
 
 .profile{
-  width:850px;
+  width:900px;
   max-width:95%;
 
   background:
@@ -238,9 +236,8 @@ nav a:hover{
 }
 
 .user-info h2{
-  font-size:40px;
-
-  margin-bottom:10px;
+  font-size:42px;
+  margin-bottom:12px;
 
   color:#00ffff;
 
@@ -249,57 +246,8 @@ nav a:hover{
 }
 
 .user-info p{
-  margin:8px 0;
+  margin:10px 0;
   color:#cbd5e1;
-}
-
-/* STATS */
-
-.stats{
-  margin-top:35px;
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(180px,1fr));
-
-  gap:18px;
-}
-
-.stat{
-  background:
-  rgba(255,255,255,0.04);
-
-  padding:25px;
-
-  border-radius:20px;
-
-  border:
-  1px solid rgba(255,255,255,0.08);
-
-  text-align:center;
-
-  transition:0.25s;
-}
-
-.stat:hover{
-  transform:translateY(-5px);
-
-  border-color:#00ffff;
-
-  box-shadow:
-  0 0 20px rgba(0,255,255,0.3);
-}
-
-.stat h3{
-  color:#94a3b8;
-  margin-bottom:12px;
-}
-
-.stat-number{
-  font-size:32px;
-  color:#00ffff;
-  font-weight:bold;
 }
 
 /* PROJECTS */
@@ -317,7 +265,7 @@ nav a:hover{
   display:grid;
 
   grid-template-columns:
-  repeat(auto-fit,minmax(240px,1fr));
+  repeat(auto-fit,minmax(250px,1fr));
 
   gap:18px;
 }
@@ -347,7 +295,7 @@ nav a:hover{
 
 .project img{
   width:100%;
-  height:150px;
+  height:160px;
   object-fit:cover;
 }
 
@@ -355,11 +303,11 @@ nav a:hover{
   padding:18px;
 }
 
-.project h3{
+.project-content h3{
   margin-bottom:10px;
 }
 
-.project p{
+.project-content p{
   color:#94a3b8;
   font-size:14px;
 }
@@ -405,20 +353,20 @@ nav a:hover{
 
 <body>
 
-<div class="grid"></div>
+<div class="bg-grid"></div>
 
-<div class="glow glow1"></div>
-<div class="glow glow2"></div>
+<div class="glow one"></div>
+<div class="glow two"></div>
 
 <header>
 
   <div class="logo">
-    SCRATCH CYBERSTATS
+    CYBERSTATS
   </div>
 
   <nav>
     <a href="#">Accueil</a>
-    <a href="#">Utilisateurs</a>
+    <a href="#">Profils</a>
     <a href="#">Projets</a>
     <a href="#">API</a>
   </nav>
@@ -433,15 +381,15 @@ nav a:hover{
     Recherche de profils Scratch en temps réel
   </p>
 
-  <div class="search">
+  <div class="search-container">
 
     <input
       type="text"
-      id="username"
+      id="searchInput"
       placeholder="Entrer un pseudo Scratch..."
     >
 
-    <button onclick="loadUser()">
+    <button onclick="searchUser()">
       SEARCH
     </button>
 
@@ -453,10 +401,10 @@ nav a:hover{
 
 <script>
 
-async function loadUser(){
+async function searchUser(){
 
   const username =
-  document.getElementById("username")
+  document.getElementById("searchInput")
   .value
   .trim();
 
@@ -476,7 +424,7 @@ async function loadUser(){
 
   result.innerHTML = `
     <div class="profile">
-      <p>Connexion à l'API Scratch...</p>
+      <p>Connexion à Scratch...</p>
     </div>
   `;
 
@@ -484,45 +432,25 @@ async function loadUser(){
 
     /* USER */
 
-    const userRes = await fetch(
+    const userResponse = await fetch(
       `https://api.scratch.mit.edu/users/${username}`
     );
 
-    if(!userRes.ok){
+    if(!userResponse.ok){
       throw new Error();
     }
 
     const user =
-    await userRes.json();
+    await userResponse.json();
 
     /* PROJECTS */
 
-    const projectRes = await fetch(
-      `https://api.scratch.mit.edu/users/${username}/projects`
+    const projectsResponse = await fetch(
+      `https://api.scratch.mit.edu/users/${username}/projects?limit=6`
     );
 
     const projects =
-    await projectRes.json();
-
-    /* FOLLOWERS */
-
-    const followersRes = await fetch(
-      `https://scratchdb.lefty.one/v3/user/info/${username}`
-    );
-
-    let followers = "Inconnu";
-
-    if(followersRes.ok){
-
-      const followerData =
-      await followersRes.json();
-
-      followers =
-      followerData.statistics.followers;
-
-    }
-
-    /* RENDER */
+    await projectsResponse.json();
 
     result.innerHTML = `
 
@@ -562,36 +490,16 @@ async function loadUser(){
             </p>
 
             <p>
+              Scratch Team :
+              ${user.scratchteam ? "Oui" : "Non"}
+            </p>
+
+            <p>
               Créé le :
               ${new Date(user.history.joined)
               .toLocaleDateString()}
             </p>
 
-          </div>
-
-        </div>
-
-        <div class="stats">
-
-          <div class="stat">
-            <h3>FOLLOWERS</h3>
-            <div class="stat-number">
-              ${followers}
-            </div>
-          </div>
-
-          <div class="stat">
-            <h3>PROJETS</h3>
-            <div class="stat-number">
-              ${projects.length}
-            </div>
-          </div>
-
-          <div class="stat">
-            <h3>SCRATCH TEAM</h3>
-            <div class="stat-number">
-              ${user.scratchteam ? "YES" : "NO"}
-            </div>
           </div>
 
         </div>
@@ -602,7 +510,7 @@ async function loadUser(){
 
           <div class="project-grid">
 
-            ${projects.slice(0,6).map(project => `
+            ${projects.map(project => `
 
               <div class="project">
 
@@ -645,17 +553,16 @@ async function loadUser(){
         <p>Utilisateur introuvable.</p>
       </div>
     `;
-
   }
 
 }
 
 document
-.getElementById("username")
+.getElementById("searchInput")
 .addEventListener("keypress", function(e){
 
   if(e.key === "Enter"){
-    loadUser();
+    searchUser();
   }
 
 });
