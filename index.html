@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Site en consrtuction</title>
+    <title>Site en construction</title>
     <style>
       /* Design général */
       body {
@@ -26,19 +26,6 @@
         to   { opacity: 1; transform: translateY(0); }
       }
 
-      /* Bouton */
-      button {
-        margin-top: 30px;
-        padding: 15px 35px;
-        font-size: 1.1em;
-        background: #6c63ff;
-        color: white;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: transform 0.2s, background 0.3s;
-      }
-
       button:hover {
         background: #4b44cc;
         transform: scale(1.1);
@@ -50,13 +37,6 @@
         font-size: 1.4em;
         opacity: 0;
         transition: opacity 0.8s;
-      }
-
-      /* Compteur de clics */
-      #compteur {
-        margin-top: 15px;
-        font-size: 1em;
-        color: #aaa;
       }
 
       /* Particules */
@@ -71,8 +51,7 @@
   <body>
 
     <h1>✨Site en cours de création✨</h1>
-    <p>Clique sur le bouton pour une surprise !</p>
-
+    
     <button onclick="clique()">Clique-moi !</button>
 
     <div id="message"></div>
@@ -81,16 +60,7 @@
     <canvas id="canvas"></canvas>
 
     <script>
-      // --- Bouton interactif ---
-      let clics = 0;
-      const messages = [
-        "Bravo ! 🎉",
-        "Tu es curieux ! 👀",
-        "Encore ! 😄",
-        "Tu ne t'arrêtes pas ! 🚀",
-        "Champion du clic ! 🏆"
-      ];
-
+      
       function clique() {
         clics++;
         const msg = document.getElementById("message");
