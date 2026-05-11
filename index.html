@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CyberStats</title>
+<title>ScratchViews</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,69 +17,28 @@
 }
 
 body{
-  background:#050816;
+  font-family:'Inter',sans-serif;
+  background:#0f172a;
   color:white;
-  font-family:'Orbitron',sans-serif;
-  overflow-x:hidden;
-}
-
-/* BACKGROUND */
-
-.bg-grid{
-  position:fixed;
-  inset:0;
-
-  background-image:
-  linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
-
-  background-size:40px 40px;
-  z-index:-2;
-}
-
-.glow{
-  position:fixed;
-  width:500px;
-  height:500px;
-  border-radius:50%;
-  filter:blur(120px);
-  z-index:-1;
-}
-
-.glow.one{
-  top:-100px;
-  left:-100px;
-  background:rgba(0,255,255,0.12);
-}
-
-.glow.two{
-  bottom:-100px;
-  right:-100px;
-  background:rgba(255,0,255,0.12);
 }
 
 /* HEADER */
 
 header{
-  padding:25px 50px;
+  background:#111827;
+  border-bottom:1px solid #1f2937;
+
+  padding:20px 40px;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
-
-  border-bottom:
-  1px solid rgba(255,255,255,0.08);
-
-  backdrop-filter:blur(10px);
 }
 
 .logo{
-  font-size:32px;
-  font-weight:900;
-  color:#00ffff;
-
-  text-shadow:
-  0 0 10px #00ffff,
-  0 0 30px #00ffff;
+  font-size:28px;
+  font-weight:800;
+  color:#38bdf8;
 }
 
 nav{
@@ -90,145 +49,114 @@ nav{
 nav a{
   color:#94a3b8;
   text-decoration:none;
-  transition:0.25s;
+  transition:0.2s;
 }
 
 nav a:hover{
-  color:#00ffff;
+  color:white;
 }
 
 /* HERO */
 
 .hero{
   text-align:center;
-  padding:90px 20px 50px;
+  padding:80px 20px 60px;
 }
 
 .hero h1{
-  font-size:68px;
-  margin-bottom:20px;
-
-  text-shadow:
-  0 0 20px #00ffff;
+  font-size:58px;
+  margin-bottom:15px;
 }
 
 .hero p{
   color:#94a3b8;
-  margin-bottom:40px;
+  font-size:18px;
+  margin-bottom:35px;
 }
 
 /* SEARCH */
 
-.search-container{
+.search{
   display:flex;
   justify-content:center;
-  gap:15px;
+  gap:12px;
   flex-wrap:wrap;
 }
 
-.search-container input{
-  width:420px;
+.search input{
+  width:400px;
   max-width:90%;
 
-  padding:18px;
+  padding:16px;
 
   border:none;
   outline:none;
 
-  border-radius:18px;
+  border-radius:14px;
 
-  background:
-  rgba(15,23,42,0.8);
+  background:#1e293b;
 
   color:white;
 
-  border:
-  1px solid rgba(0,255,255,0.25);
-
-  box-shadow:
-  0 0 20px rgba(0,255,255,0.15);
+  font-size:16px;
 }
 
-.search-container input:focus{
-  border-color:#00ffff;
-
-  box-shadow:
-  0 0 30px rgba(0,255,255,0.5);
-}
-
-.search-container button{
-  padding:18px 30px;
+.search button{
+  padding:16px 24px;
 
   border:none;
 
-  border-radius:18px;
+  border-radius:14px;
+
+  background:#38bdf8;
+
+  color:white;
+
+  font-weight:bold;
 
   cursor:pointer;
 
-  color:white;
-  font-weight:bold;
-
-  background:
-  linear-gradient(45deg,#00ffff,#ff00ff);
-
-  transition:0.25s;
-
-  box-shadow:
-  0 0 25px rgba(0,255,255,0.4);
+  transition:0.2s;
 }
 
-.search-container button:hover{
-  transform:translateY(-4px);
-
-  box-shadow:
-  0 0 35px rgba(255,0,255,0.7);
-}
-
-/* RESULT */
-
-#result{
-  display:flex;
-  justify-content:center;
-  padding:40px 20px;
+.search button:hover{
+  opacity:0.8;
 }
 
 /* PROFILE */
 
+#result{
+  display:flex;
+  justify-content:center;
+
+  padding:20px;
+}
+
 .profile{
-  width:900px;
+  width:950px;
   max-width:95%;
 
-  background:
-  rgba(15,23,42,0.8);
+  background:#111827;
 
-  border-radius:28px;
+  border:1px solid #1f2937;
+
+  border-radius:22px;
 
   padding:35px;
 
-  border:
-  1px solid rgba(0,255,255,0.2);
-
-  backdrop-filter:blur(12px);
-
-  animation:fade 0.35s ease;
+  animation:fade 0.3s ease;
 }
 
 .top{
   display:flex;
-  gap:30px;
+  gap:25px;
   flex-wrap:wrap;
 }
 
 .avatar{
-  width:130px;
-  height:130px;
-
+  width:120px;
+  height:120px;
   border-radius:50%;
-
-  border:3px solid #00ffff;
-
-  box-shadow:
-  0 0 30px rgba(0,255,255,0.7);
 }
 
 .user-info{
@@ -238,16 +166,51 @@ nav a:hover{
 .user-info h2{
   font-size:42px;
   margin-bottom:12px;
-
-  color:#00ffff;
-
-  text-shadow:
-  0 0 15px #00ffff;
 }
 
 .user-info p{
-  margin:10px 0;
-  color:#cbd5e1;
+  color:#94a3b8;
+  margin:8px 0;
+}
+
+/* STATS */
+
+.stats{
+  margin-top:35px;
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(180px,1fr));
+
+  gap:18px;
+}
+
+.stat{
+  background:#1e293b;
+
+  border-radius:18px;
+
+  padding:25px;
+
+  border:1px solid #334155;
+
+  transition:0.2s;
+}
+
+.stat:hover{
+  transform:translateY(-4px);
+}
+
+.stat h3{
+  color:#94a3b8;
+  margin-bottom:12px;
+}
+
+.number{
+  font-size:34px;
+  font-weight:bold;
+  color:#38bdf8;
 }
 
 /* PROJECTS */
@@ -258,44 +221,36 @@ nav a:hover{
 
 .projects h2{
   margin-bottom:20px;
-  color:#00ffff;
 }
 
 .project-grid{
   display:grid;
 
   grid-template-columns:
-  repeat(auto-fit,minmax(250px,1fr));
+  repeat(auto-fit,minmax(240px,1fr));
 
   gap:18px;
 }
 
 .project{
-  background:
-  rgba(255,255,255,0.04);
+  background:#1e293b;
 
-  border-radius:20px;
+  border-radius:18px;
 
   overflow:hidden;
 
-  border:
-  1px solid rgba(255,255,255,0.08);
+  border:1px solid #334155;
 
-  transition:0.25s;
+  transition:0.2s;
 }
 
 .project:hover{
   transform:translateY(-5px);
-
-  border-color:#00ffff;
-
-  box-shadow:
-  0 0 20px rgba(0,255,255,0.25);
 }
 
 .project img{
   width:100%;
-  height:160px;
+  height:150px;
   object-fit:cover;
 }
 
@@ -312,13 +267,21 @@ nav a:hover{
   font-size:14px;
 }
 
-/* ANIM */
+/* FOOTER */
+
+footer{
+  padding:35px;
+  text-align:center;
+  color:#64748b;
+}
+
+/* ANIMATION */
 
 @keyframes fade{
 
   from{
     opacity:0;
-    transform:translateY(15px);
+    transform:translateY(10px);
   }
 
   to{
@@ -333,12 +296,12 @@ nav a:hover{
 @media(max-width:700px){
 
   .hero h1{
-    font-size:42px;
+    font-size:40px;
   }
 
   header{
     flex-direction:column;
-    gap:20px;
+    gap:18px;
   }
 
   nav{
@@ -353,21 +316,16 @@ nav a:hover{
 
 <body>
 
-<div class="bg-grid"></div>
-
-<div class="glow one"></div>
-<div class="glow two"></div>
-
 <header>
 
   <div class="logo">
-    CYBERSTATS
+    ScratchViews
   </div>
 
   <nav>
     <a href="#">Accueil</a>
-    <a href="#">Profils</a>
-    <a href="#">Projets</a>
+    <a href="#">Classements</a>
+    <a href="#">Stats</a>
     <a href="#">API</a>
   </nav>
 
@@ -375,13 +333,13 @@ nav a:hover{
 
 <section class="hero">
 
-  <h1>SCRATCH NETWORK</h1>
+  <h1>Scratch Statistics</h1>
 
   <p>
-    Recherche de profils Scratch en temps réel
+    Recherche des profils Scratch et affiche tes propres statistiques
   </p>
 
-  <div class="search-container">
+  <div class="search">
 
     <input
       type="text"
@@ -390,7 +348,7 @@ nav a:hover{
     >
 
     <button onclick="searchUser()">
-      SEARCH
+      Rechercher
     </button>
 
   </div>
@@ -399,7 +357,33 @@ nav a:hover{
 
 <div id="result"></div>
 
+<footer>
+  © 2026 ScratchViews
+</footer>
+
 <script>
+
+/*
+========================================
+STATS MANUELLES
+MODIFIE ICI
+========================================
+*/
+
+const customStats = {
+
+  followers: "152 430",
+  loves: "8.2M",
+  favorites: "4.7M",
+  views: "29.1M",
+
+};
+
+/*
+========================================
+RECHERCHE UTILISATEUR
+========================================
+*/
 
 async function searchUser(){
 
@@ -424,7 +408,7 @@ async function searchUser(){
 
   result.innerHTML = `
     <div class="profile">
-      <p>Connexion à Scratch...</p>
+      <p>Chargement...</p>
     </div>
   `;
 
@@ -445,12 +429,14 @@ async function searchUser(){
 
     /* PROJECTS */
 
-    const projectsResponse = await fetch(
+    const projectResponse = await fetch(
       `https://api.scratch.mit.edu/users/${username}/projects?limit=6`
     );
 
     const projects =
-    await projectsResponse.json();
+    await projectResponse.json();
+
+    /* RENDER */
 
     result.innerHTML = `
 
@@ -490,11 +476,6 @@ async function searchUser(){
             </p>
 
             <p>
-              Scratch Team :
-              ${user.scratchteam ? "Oui" : "Non"}
-            </p>
-
-            <p>
               Créé le :
               ${new Date(user.history.joined)
               .toLocaleDateString()}
@@ -504,9 +485,45 @@ async function searchUser(){
 
         </div>
 
+        <!-- STATS MANUELLES -->
+
+        <div class="stats">
+
+          <div class="stat">
+            <h3>FOLLOWERS</h3>
+            <div class="number">
+              ${customStats.followers}
+            </div>
+          </div>
+
+          <div class="stat">
+            <h3>LOVES</h3>
+            <div class="number">
+              ${customStats.loves}
+            </div>
+          </div>
+
+          <div class="stat">
+            <h3>FAVORITES</h3>
+            <div class="number">
+              ${customStats.favorites}
+            </div>
+          </div>
+
+          <div class="stat">
+            <h3>VIEWS</h3>
+            <div class="number">
+              ${customStats.views}
+            </div>
+          </div>
+
+        </div>
+
+        <!-- PROJETS -->
+
         <div class="projects">
 
-          <h2>PROJETS RÉCENTS</h2>
+          <h2>Projets récents</h2>
 
           <div class="project-grid">
 
@@ -556,6 +573,8 @@ async function searchUser(){
   }
 
 }
+
+/* ENTER */
 
 document
 .getElementById("searchInput")
