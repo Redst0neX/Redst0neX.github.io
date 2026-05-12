@@ -31,6 +31,7 @@
     .scratch-btn { display: block; margin: 0 1.5rem 1.5rem; padding: 12px; text-align: center; background: #4C97FF; color: white; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; }
     .scratch-btn:hover { background: #3d7dd9; }
     .loading { text-align: center; padding: 3rem; color: #888; }
+    .error { text-align: center; padding: 2rem; color: #e24b4a; font-size: 14px; }
   </style>
 </head>
 <body>
@@ -42,16 +43,20 @@
 
 <script>
 const USERNAME = 'samoht1616';
+const PROXY = 'https://corsproxy.io/?url=';
 
 async function loadProfile() {
   try {
     const [userRes, projectsRes] = await Promise.all([
-      fetch(`https://api.scratch.mit.edu/users/${USERNAME}`),
-      fetch(`https://api.scratch.mit.edu/users/${USERNAME}/projects?limit=4`)
+      fetch(PROXY + encodeURIComponent(`https://api.scratch.mit.edu/users/${USERNAME}`)),
+      fetch(PROXY + encodeURIComponent(`https://api.scratch.mit.edu/users/${USERNAME}/projects?limit=4`))
     ]);
+
+    if (!userRes.ok) throw new Error('Utilisateur introuvable');
+
     const user = await userRes.json();
     const projects = await projectsRes.json();
-    const joined = new Date(user.history.joined).toLocaleDateString('fr-FR', {year:'numeric',month:'long'});
+    const joined = new Date(user.history.joined).toLocaleDateString('fr-FR', {year:'numeric', month:'long'});
 
     document.getElementById('profileCard').innerHTML = `
       <div class="banner"></div>
@@ -81,9 +86,14 @@ async function loadProfile() {
       <a class="scratch-btn" href="https://scratch.mit.edu/users/${USERNAME}" target="_blank">Voir sur Scratch</a>
     `;
   } catch(e) {
-    document.getElementById('profileCard').innerHTML = '<div class="loading">Erreur de chargement.</div>';
+    document.getElementById('profileCard').innerHTML = `
+      <div class="error">
+        <p>Impossible de charger le profil.</p>
+        <p style="font-size:12px; margin-top:8px; color:#aaa">${e.message}</p>
+      </div>`;
   }
 }
+
 loadProfile();
 </script>
 </body>
