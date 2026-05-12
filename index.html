@@ -306,17 +306,17 @@
           </a>
         `;
 
-        // Charger les 3 stats en parallèle
-        const [followers, projets, suivis] = await Promise.all([
-          countPages(`/users/${USERNAME}/followers`),
-          countPages(`/users/${USERNAME}/projects`),
-          countPages(`/users/${USERNAME}/following`)
-        ]);
+        // Followers manuel + projets et suivis automatiques
+const FOLLOWERS_MANUEL = 125; // ← change ce chiffre quand tu veux !
 
-        document.getElementById('statFollowers').textContent = followers.toLocaleString('fr-FR');
-        document.getElementById('statProjets').textContent   = projets.toLocaleString('fr-FR');
-        document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr-FR');
+const [projets, suivis] = await Promise.all([
+  countPages(`/users/${USERNAME}/projects`),
+  countPages(`/users/${USERNAME}/following`)
+]);
 
+document.getElementById('statFollowers').textContent = FOLLOWERS_MANUEL.toLocaleString('fr-FR');
+document.getElementById('statProjets').textContent   = projets.toLocaleString('fr-FR');
+document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr-FR');
       } catch (e) {
         document.getElementById('profileCard').innerHTML =
           `<div class="loading">❌ Erreur : ${e.message}</div>`;
