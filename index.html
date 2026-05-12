@@ -307,12 +307,18 @@
         `;
 
         // Followers manuel + projets et suivis automatiques
-const FOLLOWERS_MANUEL = 125; // ← change ce chiffre quand tu veux !
+// 136 (API) - 11 (bots/comptes supprimés) = 125
+const FOLLOWERS_MANUEL = followers - 11;
 
-const [projets, suivis] = await Promise.all([
+const [followers, projets, suivis] = await Promise.all([
+  countPages(`/users/${USERNAME}/followers`),
   countPages(`/users/${USERNAME}/projects`),
   countPages(`/users/${USERNAME}/following`)
 ]);
+
+document.getElementById('statFollowers').textContent = (followers - 11).toLocaleString('fr-FR');
+document.getElementById('statProjets').textContent   = projets.toLocaleString('fr-FR');
+document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr-FR');
 
 document.getElementById('statFollowers').textContent = FOLLOWERS_MANUEL.toLocaleString('fr-FR');
 document.getElementById('statProjets').textContent   = projets.toLocaleString('fr-FR');
