@@ -306,16 +306,19 @@
           </a>
         `;
 
-        // Charger les 3 stats en parallèle
-        const [followers, projets, suivis] = await Promise.all([
-          countPages(`/users/${USERNAME}/followers`),
-          countPages(`/users/${USERNAME}/projects`),
-          countPages(`/users/${USERNAME}/following`)
-        ]);
+        // Followers manuel + projets et suivis automatiques
+// 136 (API) - 11 (bots/comptes supprimés) = 125
+const FOLLOWERS_MANUEL = followers - 11;
 
-        document.getElementById('statFollowers').textContent = followers.toLocaleString('fr-FR');
-        document.getElementById('statProjets').textContent   = projets.toLocaleString('fr-FR');
-        document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr-FR');
+const [followers, projets, suivis] = await Promise.all([
+  countPages(`/users/${USERNAME}/followers`),
+  countPages(`/users/${USERNAME}/projects`),
+  countPages(`/users/${USERNAME}/following`)
+]);
+
+document.getElementById('statFollowers').textContent = (followers - 11).toLocaleString('fr-FR');
+document.getElementById('statProjets').textContent   = projets.toLocaleString('fr-FR');
+document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr-FR');
 
       } catch (e) {
         document.getElementById('profileCard').innerHTML =
