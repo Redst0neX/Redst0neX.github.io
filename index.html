@@ -182,17 +182,38 @@
   }
 
   async function getFollowers(username) {
-    try {
-      // API tierce qui donne le vrai nombre de followers
-      const res = await fetch(PROXY + encodeURIComponent(
-        `https://scratchdb.lefty.one/v3/user/info/${username}`
-      ));
-      const data = await res.json();
-      return data.statistics?.followers ?? null;
-    } catch {
-      return null;
+  // Recherche binaire : trouve le nombre exact en peu de requêtes
+  let low = 0, high = 5000;
+
+  // D'abord trouver l'ordre de grandeur
+  for (let test of [40, 80, 120, 160, 200, 300, 400, 500]) {
+    const res = await fetch(scratchURL(
+      `/users/${username}/followers?limit=1&offset=${test - 1}`
+    ));
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      high = test;
+      low = test - 40;
+      break;
+    }
+    high = test + 40;
+  }
+
+  // Affiner avec recherche binaire
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    const res = await fetch(scratchURL(
+      `/users/${username}/followers?limit=1&offset=${mid}`
+    ));
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      low = mid + 1;
+    } else {
+      high = mid;
     }
   }
+  return low;
+}
 
   async function loadProfile() {
     try {
