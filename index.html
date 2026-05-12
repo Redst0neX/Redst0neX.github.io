@@ -45,11 +45,32 @@
 const USERNAME = 'samoht1616';
 const PROXY = 'https://corsproxy.io/?url=';
 
+function scratchURL(path) {
+  return PROXY + encodeURIComponent('https://api.scratch.mit.edu' + path);
+}
+
+async function countAll(path) {
+  // Récupère toutes les pages jusqu'à la fin pour compter
+  let total = 0;
+  let offset = 0;
+  const limit = 40;
+  while (true) {
+    const res = await fetch(scratchURL(`${path}?limit=${limit}&offset=${offset}`));
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) break;
+    total += data.length;
+    if (data.length < limit) break;
+    offset += limit;
+    if (offset > 400) break; // sécurité max 400
+  }
+  return total;
+}
+
 async function loadProfile() {
   try {
     const [userRes, projectsRes] = await Promise.all([
-      fetch(PROXY + encodeURIComponent(`https://api.scratch.mit.edu/users/${USERNAME}`)),
-      fetch(PROXY + encodeURIComponent(`https://api.scratch.mit.edu/users/${USERNAME}/projects?limit=4`))
+      fetch(scratchURL(`/users/${USERNAME}`)),
+      fetch(scratchURL(`/users/${USERNAME}/projects?limit=4`))
     ]);
 
     if (!userRes.ok) throw new Error('Utilisateur introuvable');
@@ -58,6 +79,7 @@ async function loadProfile() {
     const projects = await projectsRes.json();
     const joined = new Date(user.history.joined).toLocaleDateString('fr-FR', {year:'numeric', month:'long'});
 
+    // Afficher la page de base d'abord avec "..." pour les stats
     document.getElementById('profileCard').innerHTML = `
       <div class="banner"></div>
       <div class="profile-header">
@@ -67,9 +89,9 @@ async function loadProfile() {
         ${user.profile.bio ? `<div class="bio">${user.profile.bio}</div>` : ''}
       </div>
       <div class="stats-grid">
-        <div class="stat"><div class="stat-value">${(user.followers||0).toLocaleString('fr-FR')}</div><div class="stat-label">Followers</div></div>
-        <div class="stat"><div class="stat-value">${projects.length}</div><div class="stat-label">Projets</div></div>
-        <div class="stat"><div class="stat-value">${(user.following||0).toLocaleString('fr-FR')}</div><div class="stat-label">Abonnements</div></div>
+        <div class="stat"><div class="stat-value" id="statFollowers">...</div><div class="stat-label">Followers</div></div>
+        <div class="stat"><div class="stat-value" id="statProjets">...</div><div class="stat-label">Projets</div></div>
+        <div class="stat"><div class="stat-value" id="statSuivi">...</div><div class="stat-label">Abonnements</div></div>
       </div>
       ${projects.length ? `
         <div class="section-title">Projets récents</div>
@@ -85,6 +107,18 @@ async function loadProfile() {
         </div>` : ''}
       <a class="scratch-btn" href="https://scratch.mit.edu/users/${USERNAME}" target="_blank">Voir sur Scratch</a>
     `;
+
+    // Charger les stats en parallèle
+    const [followers, projetsCount, suivis] = await Promise.all([
+      countAll(`/users/${USERNAME}/followers`),
+      countAll(`/users/${USERNAME}/projects`),
+      countAll(`/users/${USERNAME}/following`)
+    ]);
+
+    document.getElementById('statFollowers').textContent = followers.toLocaleString('fr-FR');
+    document.getElementById('statProjets').textContent = projetsCount.toLocaleString('fr-FR');
+    document.getElementById('statSuivi').textContent = suivis.toLocaleString('fr-FR');
+
   } catch(e) {
     document.getElementById('profileCard').innerHTML = `
       <div class="error">
