@@ -3,90 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Site en construction</title>
-
+  <title>Profil Scratch - samoht1616</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #0f0f1a;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    h1 {
-      font-size: 3em;
-      z-index: 1;
-      animation: apparition 1.5s ease;
-    }
-
-    @keyframes apparition {
-      from { opacity: 0; transform: translateY(-30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; min-height: 100vh; padding: 2rem 1rem; }
+    .page { max-width: 600px; margin: 0 auto; }
+    .card { background: white; border-radius: 16px; overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .banner { height: 100px; background: linear-gradient(135deg, #4C97FF, #9966FF); }
+    .profile-header { padding: 0 1.5rem 1.5rem; }
+    .avatar { width: 72px; height: 72px; border-radius: 50%; border: 4px solid white; margin-top: -36px; background: #4C97FF; overflow: hidden; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .username { font-size: 22px; font-weight: 600; color: #1a1a1a; margin-top: 10px; }
+    .joined { font-size: 13px; color: #666; margin-top: 3px; }
+    .bio { font-size: 14px; color: #444; margin-top: 10px; line-height: 1.6; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
+    .stat { padding: 1rem; text-align: center; }
+    .stat-value { font-size: 22px; font-weight: 600; color: #1a1a1a; }
+    .stat-label { font-size: 12px; color: #888; margin-top: 2px; }
+    .section-title { font-size: 15px; font-weight: 600; color: #1a1a1a; padding: 1rem 1.5rem 0.5rem; border-top: 1px solid #eee; }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 1.5rem 1.5rem; }
+    .project-card { background: #f9f9f9; border-radius: 10px; overflow: hidden; cursor: pointer; transition: transform 0.15s; }
+    .project-card:hover { transform: scale(1.02); }
+    .project-thumb img { width: 100%; height: 90px; object-fit: cover; display: block; }
+    .project-info { padding: 8px 10px; }
+    .project-name { font-size: 13px; font-weight: 600; color: #1a1a1a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .project-stats { font-size: 11px; color: #888; margin-top: 3px; }
+    .scratch-btn { display: block; margin: 0 1.5rem 1.5rem; padding: 12px; text-align: center; background: #4C97FF; color: white; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; }
+    .scratch-btn:hover { background: #3d7dd9; }
+    .loading { text-align: center; padding: 3rem; color: #888; }
   </style>
 </head>
-
 <body>
+<div class="page">
+  <div class="card" id="profileCard">
+    <div class="loading">Chargement du profil...</div>
+  </div>
+</div>
 
-  <h1>✨Site en cours de création✨</h1>
+<script>
+const USERNAME = 'samoht1616';
 
-  <canvas id="canvas"></canvas>
+async function loadProfile() {
+  try {
+    const [userRes, projectsRes] = await Promise.all([
+      fetch(`https://api.scratch.mit.edu/users/${USERNAME}`),
+      fetch(`https://api.scratch.mit.edu/users/${USERNAME}/projects?limit=4`)
+    ]);
+    const user = await userRes.json();
+    const projects = await projectsRes.json();
+    const joined = new Date(user.history.joined).toLocaleDateString('fr-FR', {year:'numeric',month:'long'});
 
-  <script>
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    const particules = Array.from({ length: 80 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      r: Math.random() * 2 + 1,
-      dx: (Math.random() - 0.5) * 0.5,
-      dy: (Math.random() - 0.5) * 0.5,
-      alpha: Math.random()
-    }));
-
-    function animer() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particules.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(108, 99, 255, ${p.alpha})`;
-        ctx.fill();
-
-        p.x += p.dx;
-        p.y += p.dy;
-
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-      });
-
-      requestAnimationFrame(animer);
-    }
-
-    animer();
-  </script>
-
+    document.getElementById('profileCard').innerHTML = `
+      <div class="banner"></div>
+      <div class="profile-header">
+        <div class="avatar"><img src="${user.profile.images['90x90']}" /></div>
+        <div class="username">${user.username}</div>
+        <div class="joined">Membre depuis ${joined} · ${user.profile.country || ''}</div>
+        ${user.profile.bio ? `<div class="bio">${user.profile.bio}</div>` : ''}
+      </div>
+      <div class="stats-grid">
+        <div class="stat"><div class="stat-value">${(user.followers||0).toLocaleString('fr-FR')}</div><div class="stat-label">Followers</div></div>
+        <div class="stat"><div class="stat-value">${projects.length}</div><div class="stat-label">Projets</div></div>
+        <div class="stat"><div class="stat-value">${(user.following||0).toLocaleString('fr-FR')}</div><div class="stat-label">Abonnements</div></div>
+      </div>
+      ${projects.length ? `
+        <div class="section-title">Projets récents</div>
+        <div class="projects-grid">
+          ${projects.map(p => `
+            <div class="project-card" onclick="window.open('https://scratch.mit.edu/projects/${p.id}')">
+              <div class="project-thumb"><img src="https://cdn2.scratch.mit.edu/get_image/project/${p.id}_480x360.png" /></div>
+              <div class="project-info">
+                <div class="project-name">${p.title}</div>
+                <div class="project-stats">❤️ ${p.stats?.loves||0} · ⭐ ${p.stats?.favorites||0} · 👁️ ${p.stats?.views||0}</div>
+              </div>
+            </div>`).join('')}
+        </div>` : ''}
+      <a class="scratch-btn" href="https://scratch.mit.edu/users/${USERNAME}" target="_blank">Voir sur Scratch</a>
+    `;
+  } catch(e) {
+    document.getElementById('profileCard').innerHTML = '<div class="loading">Erreur de chargement.</div>';
+  }
+}
+loadProfile();
+</script>
 </body>
 </html>
