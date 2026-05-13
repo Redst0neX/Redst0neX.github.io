@@ -12,9 +12,8 @@
       background: #f0f4ff;
       min-height: 100vh;
       padding: 2rem 1rem;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s;
     }
-
     body.dark { background: #0f0f1a; }
 
     canvas#particles {
@@ -33,24 +32,19 @@
     .toggle-btn {
       position: fixed; top: 16px; right: 16px; z-index: 10;
       padding: 8px 16px; border-radius: 20px;
-      border: 1px solid #ddd;
-      background: white;
+      border: 1px solid #ddd; background: white;
       font-size: 13px; cursor: pointer;
       display: flex; align-items: center; gap: 6px;
-      transition: all 0.3s;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.3s;
     }
     body.dark .toggle-btn {
-      background: #1e1e2e;
-      border-color: #444;
-      color: #eee;
+      background: #1e1e2e; border-color: #444; color: #eee;
     }
 
     .card {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 1rem;
+      background: white; border-radius: 16px;
+      overflow: hidden; margin-bottom: 1rem;
       box-shadow: 0 2px 16px rgba(0,0,0,0.08);
       transition: background 0.3s, box-shadow 0.3s;
     }
@@ -67,12 +61,9 @@
     .profile-header { padding: 0 1.5rem 1.5rem; }
 
     .avatar {
-      width: 76px; height: 76px;
-      border-radius: 50%;
-      border: 4px solid white;
-      margin-top: -38px;
-      background: #4C97FF;
-      overflow: hidden;
+      width: 76px; height: 76px; border-radius: 50%;
+      border: 4px solid white; margin-top: -38px;
+      background: #4C97FF; overflow: hidden;
       transition: border-color 0.3s;
     }
     body.dark .avatar { border-color: #1e1e2e; }
@@ -90,21 +81,27 @@
     .bio {
       font-size: 14px; color: #555;
       margin-top: 10px; line-height: 1.6;
+      white-space: pre-line;
     }
     body.dark .bio { color: #bbb; }
 
+    .status {
+      font-size: 14px; color: #555;
+      margin-top: 8px; padding-top: 8px;
+      border-top: 1px solid #f0f0f0;
+      line-height: 1.6; white-space: pre-line;
+    }
+    body.dark .status { color: #bbb; border-color: #2e2e3e; }
+
     .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(3, 1fr);
       border-top: 1px solid #f0f0f0;
     }
     body.dark .stats-grid { border-color: #2e2e3e; }
 
     .stat { padding: 1.1rem; text-align: center; }
 
-    .stat-value {
-      font-size: 22px; font-weight: 700; color: #1a1a1a;
-    }
+    .stat-value { font-size: 22px; font-weight: 700; color: #1a1a1a; }
     body.dark .stat-value { color: #f0f0f0; }
 
     .stat-label { font-size: 12px; color: #999; margin-top: 3px; }
@@ -118,40 +115,32 @@
     body.dark .section-title { color: #f0f0f0; border-color: #2e2e3e; }
 
     .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      padding: 0 1.5rem 1.5rem;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 10px; padding: 0 1.5rem 1.5rem;
     }
 
     .project-card {
-      background: #f7f9ff;
-      border-radius: 10px;
-      overflow: hidden;
-      cursor: pointer;
+      background: #f7f9ff; border-radius: 10px;
+      overflow: hidden; cursor: pointer;
       border: 1px solid #eef0ff;
       transition: transform 0.15s, background 0.3s;
     }
     .project-card:hover { transform: scale(1.02); }
-    body.dark .project-card {
-      background: #2a2a3e;
-      border-color: #3a3a4e;
-    }
+    body.dark .project-card { background: #2a2a3e; border-color: #3a3a4e; }
 
-    .project-thumb { position: relative; }
     .project-thumb img {
       width: 100%; height: 90px;
       object-fit: cover; display: block;
     }
-    .project-thumb .no-img {
+    .no-img {
       width: 100%; height: 90px;
       background: linear-gradient(135deg, #4C97FF22, #9966FF22);
       display: flex; align-items: center;
-      justify-content: center;
-      font-size: 28px;
+      justify-content: center; font-size: 28px;
     }
 
     .project-info { padding: 8px 10px 10px; }
+
     .project-name {
       font-size: 13px; font-weight: 600; color: #1a1a1a;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -162,38 +151,20 @@
     body.dark .project-stats { color: #aaa; }
 
     .scratch-btn {
-      display: block;
-      margin: 0 1.5rem 1.5rem;
-      padding: 12px;
-      text-align: center;
-      background: #4C97FF;
-      color: white;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
+      display: block; margin: 0 1.5rem 1.5rem;
+      padding: 12px; text-align: center;
+      background: #4C97FF; color: white;
+      border-radius: 10px; font-size: 15px;
+      font-weight: 600; text-decoration: none;
       transition: background 0.2s;
     }
     .scratch-btn:hover { background: #3a80e0; }
 
-    .loading {
-      text-align: center;
-      padding: 3rem;
-      color: #999;
-      font-size: 15px;
-    }
+    .loading { text-align: center; padding: 3rem; color: #999; font-size: 15px; }
     body.dark .loading { color: #aaa; }
 
-    .spin {
-      display: inline-block;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .stat-value .spin { font-size: 16px; }
+    .spin { display: inline-block; animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -209,6 +180,7 @@
 
   <script>
     const USERNAME = 'samoht1616';
+    const BOTS = 11; // comptes supprimés/bots à soustraire
     const PROXY = 'https://corsproxy.io/?url=';
     let darkMode = false;
 
@@ -223,10 +195,8 @@
       return PROXY + encodeURIComponent('https://api.scratch.mit.edu' + path);
     }
 
-    // Compte précisément en parcourant toutes les pages
     async function countPages(path) {
-      let total = 0;
-      let offset = 0;
+      let total = 0, offset = 0;
       while (true) {
         const res = await fetch(apiURL(`${path}?limit=40&offset=${offset}`));
         if (!res.ok) break;
@@ -261,7 +231,8 @@
             </div>
             <div class="username">${user.username}</div>
             <div class="joined">Membre depuis ${joined}${user.profile.country ? ' · ' + user.profile.country : ''}</div>
-            ${user.profile.bio ? `<div class="bio">${user.profile.bio}</div>` : ''}
+            ${user.profile.bio   ? `<div class="bio">${user.profile.bio}</div>` : ''}
+            ${user.profile.status ? `<div class="status">🔨 ${user.profile.status}</div>` : ''}
           </div>
           <div class="stats-grid">
             <div class="stat">
@@ -291,11 +262,7 @@
                   </div>
                   <div class="project-info">
                     <div class="project-name">${p.title}</div>
-                    <div class="project-stats">
-                      ❤️ ${p.stats?.loves || 0} &nbsp;
-                      ⭐ ${p.stats?.favorites || 0} &nbsp;
-                      👁️ ${p.stats?.views || 0}
-                    </div>
+                    <div class="project-stats">❤️ ${p.stats?.loves||0} &nbsp;⭐ ${p.stats?.favorites||0} &nbsp;👁️ ${p.stats?.views||0}</div>
                   </div>
                 </div>
               `).join('')}
@@ -306,19 +273,20 @@
           </a>
         `;
 
-        // Followers manuel + projets et suivis automatiques
-// 136 (API) - 11 (bots/comptes supprimés) = 125
-const FOLLOWERS_MANUEL = followers - 11;
+        // Charger les 3 stats en parallèle
+        const results = await Promise.all([
+          countPages(`/users/${USERNAME}/followers`),
+          countPages(`/users/${USERNAME}/projects`),
+          countPages(`/users/${USERNAME}/following`)
+        ]);
 
-const [followers, projets, suivis] = await Promise.all([
-  countPages(`/users/${USERNAME}/followers`),
-  countPages(`/users/${USERNAME}/projects`),
-  countPages(`/users/${USERNAME}/following`)
-]);
+        const totalFollowers = results[0];
+        const totalProjets   = results[1];
+        const totalSuivis    = results[2];
 
-document.getElementById('statFollowers').textContent = (followers - 11).toLocaleString('fr-FR');
-document.getElementById('statProjets').textContent   = projets.toLocaleString('fr-FR');
-document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr-FR');
+        document.getElementById('statFollowers').textContent = Math.max(0, totalFollowers - BOTS).toLocaleString('fr-FR');
+        document.getElementById('statProjets').textContent   = totalProjets.toLocaleString('fr-FR');
+        document.getElementById('statSuivi').textContent     = totalSuivis.toLocaleString('fr-FR');
 
       } catch (e) {
         document.getElementById('profileCard').innerHTML =
@@ -326,15 +294,12 @@ document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr
       }
     }
 
-    // Particules animées
     function initParticles() {
       const canvas = document.getElementById('particles');
       const ctx = canvas.getContext('2d');
       canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
-
       const color = darkMode ? '108,99,255' : '76,151,255';
-
       const pts = Array.from({ length: 80 }, () => ({
         x:  Math.random() * canvas.width,
         y:  Math.random() * canvas.height,
@@ -343,7 +308,6 @@ document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr
         dy: (Math.random() - 0.5) * 0.5,
         a:  Math.random() * 0.4 + 0.1
       }));
-
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         pts.forEach(p => {
@@ -357,7 +321,6 @@ document.getElementById('statSuivi').textContent     = suivis.toLocaleString('fr
         });
         window._raf = requestAnimationFrame(draw);
       }
-
       if (window._raf) cancelAnimationFrame(window._raf);
       draw();
     }
