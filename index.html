@@ -168,9 +168,10 @@
   </style>
 </head>
 <body>
-
+<body class="dark">
+  
   <canvas id="particles"></canvas>
-  <button class="toggle-btn" onclick="toggleDark()" id="darkBtn">🌙 Mode sombre</button>
+  <button class="toggle-btn" onclick="toggleDark()" id="darkBtn">☀️ Mode clair</button>
 
   <div class="page">
     <div class="card" id="profileCard">
@@ -182,7 +183,7 @@
     const USERNAME = 'samoht1616';
     const BOTS = 11; // comptes supprimés/bots à soustraire
     const PROXY = 'https://corsproxy.io/?url=';
-    let darkMode = false;
+    let darkMode = true;
 
     function toggleDark() {
       darkMode = !darkMode;
