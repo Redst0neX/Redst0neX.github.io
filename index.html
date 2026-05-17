@@ -43,16 +43,21 @@
       top: 16px;
       right: 16px;
       z-index: 10;
+
       padding: 8px 16px;
       border-radius: 20px;
       border: 1px solid #ddd;
+
       background: white;
       font-size: 13px;
       cursor: pointer;
+
       display: flex;
       align-items: center;
       gap: 6px;
+
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
       transition: all 0.3s;
     }
 
@@ -65,13 +70,18 @@
     .card {
       width: 100%;
       max-width: 720px;
+
       background: white;
       border-radius: 24px;
+
       overflow: hidden;
       position: relative;
       z-index: 1;
+
       box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+
       transition: background 0.3s, box-shadow 0.3s;
+
       animation: fadeIn 0.8s ease;
     }
 
@@ -90,6 +100,7 @@
       content: "";
       position: absolute;
       inset: 0;
+
       background:
         radial-gradient(circle at top right, rgba(255,255,255,0.25), transparent 35%),
         radial-gradient(circle at bottom left, rgba(255,255,255,0.15), transparent 40%);
@@ -125,15 +136,21 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
+
       margin-bottom: 2rem;
     }
 
     .time-box {
       background: #f7f9ff;
       border: 1px solid #eef0ff;
+
       border-radius: 18px;
+
       padding: 1.4rem 1rem;
-      transition: transform 0.2s, background 0.3s;
+
+      transition:
+        transform 0.2s,
+        background 0.3s;
     }
 
     .time-box:hover {
@@ -145,21 +162,61 @@
       border-color: #3a3a4e;
     }
 
+    .flip-wrapper {
+      perspective: 1000px;
+      height: 60px;
+      position: relative;
+    }
+
     .number {
       font-size: 2.4rem;
       font-weight: 700;
       color: #4C97FF;
+
       line-height: 1;
+
+      position: absolute;
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
     }
 
     body.dark .number {
       color: #8cbcff;
     }
 
+    .number.flip {
+      animation: flipAnim 0.6s ease;
+    }
+
+    @keyframes flipAnim {
+      0% {
+        transform: rotateX(0deg);
+        opacity: 1;
+      }
+
+      50% {
+        transform: rotateX(-90deg);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+      }
+    }
+
     .label {
       margin-top: 10px;
+
       font-size: 13px;
       color: #888;
+
       text-transform: uppercase;
       letter-spacing: 1px;
     }
@@ -171,7 +228,9 @@
     .target-date {
       font-size: 14px;
       color: #666;
+
       padding-top: 1rem;
+
       border-top: 1px solid #f0f0f0;
     }
 
@@ -184,6 +243,7 @@
       font-size: 2rem;
       font-weight: 700;
       color: #4C97FF;
+
       padding: 2rem 0;
     }
 
@@ -206,6 +266,7 @@
         opacity: 0;
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -223,148 +284,241 @@
   </button>
 
   <div class="card">
+
     <div class="banner"></div>
 
     <div class="content">
-      <h1 class="title">Compte à rebours</h1>
+
+      <h1 class="title">
+        Compte à rebours
+      </h1>
 
       <div class="subtitle">
         Jusqu’au 26 juin 2026 à 17h10
       </div>
 
       <div class="countdown-grid" id="countdown">
+
         <div class="time-box">
-          <div class="number" id="days">0</div>
+          <div class="flip-wrapper">
+            <div class="number" id="days">0</div>
+          </div>
           <div class="label">Jours</div>
         </div>
 
         <div class="time-box">
-          <div class="number" id="hours">0</div>
+          <div class="flip-wrapper">
+            <div class="number" id="hours">00</div>
+          </div>
           <div class="label">Heures</div>
         </div>
 
         <div class="time-box">
-          <div class="number" id="minutes">0</div>
+          <div class="flip-wrapper">
+            <div class="number" id="minutes">00</div>
+          </div>
           <div class="label">Minutes</div>
         </div>
 
         <div class="time-box">
-          <div class="number" id="seconds">0</div>
+          <div class="flip-wrapper">
+            <div class="number" id="seconds">00</div>
+          </div>
           <div class="label">Secondes</div>
         </div>
+
       </div>
 
       <div class="target-date">
         Date cible : 26/06/2026 — 17:10
       </div>
+
     </div>
+
   </div>
 
   <script>
-    // ======== MODE SOMBRE ========
+
+    // ========= MODE SOMBRE =========
 
     let darkMode = true;
 
     function toggleDark() {
+
       darkMode = !darkMode;
 
       document.body.classList.toggle('dark', darkMode);
 
       document.getElementById('darkBtn').textContent =
-        darkMode ? '☀️ Mode clair' : '🌙 Mode sombre';
+        darkMode
+          ? '☀️ Mode clair'
+          : '🌙 Mode sombre';
 
       initParticles();
     }
 
-    // ======== COMPTE À REBOURS ========
+    // ========= COMPTE À REBOURS =========
 
-    // Date cible : 26 juin 2026 à 17:10:00
-    const targetDate = new Date('2026-06-26T17:10:00');
+    const targetDate =
+      new Date('2026-06-26T17:10:00');
+
+    function updateValue(id, value) {
+
+      const el = document.getElementById(id);
+
+      value = String(value);
+
+      if (el.textContent !== value) {
+
+        el.classList.remove('flip');
+
+        void el.offsetWidth;
+
+        el.textContent = value;
+
+        el.classList.add('flip');
+      }
+    }
 
     function updateCountdown() {
+
       const now = new Date();
+
       const diff = targetDate - now;
 
       if (diff <= 0) {
+
         document.getElementById('countdown').innerHTML = `
           <div class="finished">
             🎉 Le compte à rebours est terminé !
           </div>
         `;
+
         return;
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const days = Math.floor(
+        diff / (1000 * 60 * 60 * 24)
+      );
 
       const hours = Math.floor(
-        (diff % (1000 * 60 * 60 * 24)) /
-        (1000 * 60 * 60)
+        (diff % (1000 * 60 * 60 * 24))
+        / (1000 * 60 * 60)
       );
 
       const minutes = Math.floor(
-        (diff % (1000 * 60 * 60)) /
-        (1000 * 60)
+        (diff % (1000 * 60 * 60))
+        / (1000 * 60)
       );
 
       const seconds = Math.floor(
-        (diff % (1000 * 60)) /
-        1000
+        (diff % (1000 * 60))
+        / 1000
       );
 
-      document.getElementById('days').textContent = days;
-      document.getElementById('hours').textContent =
-        String(hours).padStart(2, '0');
+      updateValue('days', days);
 
-      document.getElementById('minutes').textContent =
-        String(minutes).padStart(2, '0');
+      updateValue(
+        'hours',
+        String(hours).padStart(2, '0')
+      );
 
-      document.getElementById('seconds').textContent =
-        String(seconds).padStart(2, '0');
+      updateValue(
+        'minutes',
+        String(minutes).padStart(2, '0')
+      );
+
+      updateValue(
+        'seconds',
+        String(seconds).padStart(2, '0')
+      );
     }
 
     setInterval(updateCountdown, 1000);
+
     updateCountdown();
 
-    // ======== PARTICULES ========
+    // ========= PARTICULES =========
 
     function initParticles() {
-      const canvas = document.getElementById('particles');
-      const ctx = canvas.getContext('2d');
 
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const canvas =
+        document.getElementById('particles');
+
+      const ctx =
+        canvas.getContext('2d');
+
+      canvas.width =
+        window.innerWidth;
+
+      canvas.height =
+        window.innerHeight;
 
       const color = darkMode
         ? '108,99,255'
         : '76,151,255';
 
-      const particles = Array.from({ length: 80 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5,
-        a: Math.random() * 0.4 + 0.1
-      }));
+      const particles = Array.from(
+        { length: 80 },
+        () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+
+          r: Math.random() * 2 + 1,
+
+          dx: (Math.random() - 0.5) * 0.5,
+          dy: (Math.random() - 0.5) * 0.5,
+
+          a: Math.random() * 0.4 + 0.1
+        })
+      );
 
       function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.clearRect(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
 
         particles.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
 
-          ctx.fillStyle = `rgba(${color}, ${p.a})`;
+          ctx.beginPath();
+
+          ctx.arc(
+            p.x,
+            p.y,
+            p.r,
+            0,
+            Math.PI * 2
+          );
+
+          ctx.fillStyle =
+            `rgba(${color}, ${p.a})`;
+
           ctx.fill();
 
           p.x += p.dx;
           p.y += p.dy;
 
-          if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-          if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+          if (
+            p.x < 0 ||
+            p.x > canvas.width
+          ) {
+            p.dx *= -1;
+          }
+
+          if (
+            p.y < 0 ||
+            p.y > canvas.height
+          ) {
+            p.dy *= -1;
+          }
         });
 
-        window._raf = requestAnimationFrame(draw);
+        window._raf =
+          requestAnimationFrame(draw);
       }
 
       if (window._raf) {
@@ -374,9 +528,13 @@
       draw();
     }
 
-    window.addEventListener('resize', initParticles);
+    window.addEventListener(
+      'resize',
+      initParticles
+    );
 
     initParticles();
+
   </script>
 
 </body>
